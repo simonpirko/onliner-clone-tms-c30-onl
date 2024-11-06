@@ -20,6 +20,8 @@ public class ShowcaseProductGroupsController {
 
     @GetMapping
     public String index() {
+        ProductType productType = new ProductType("Шины", "shinii");
+        showcaseProductGroupsDao.save(productType);
 
         List<ProductType> productTypes = new ArrayList<>();
         productTypes = showcaseProductGroupsDao.index();

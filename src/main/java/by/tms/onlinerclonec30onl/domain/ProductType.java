@@ -8,6 +8,11 @@ public class ProductType {
     private String nameType;
     private String nameTable;
 
+    public ProductType(String type, String table) {
+        this.nameType = type;
+        this.nameTable = table;
+    }
+
     public long getId() {
         return id;
     }

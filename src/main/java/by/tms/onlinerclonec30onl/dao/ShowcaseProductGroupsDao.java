@@ -18,12 +18,13 @@ public class ShowcaseProductGroupsDao {
     }
 
     public List<ProductType> index() {
-        List<ProductType> productTypes;
-        productTypes =
-                jdbcTemplate.query("SELECT * FROM product_type", new BeanPropertyRowMapper<>(ProductType.class));
-        int i = 0;
-        return productTypes;
+        return jdbcTemplate.query("SELECT * FROM product_type", new BeanPropertyRowMapper<>(ProductType.class));
     }
 
+
+    public int save(ProductType productType) {
+        return jdbcTemplate.update("INSERT INTO product_type (name_type, name_table) VALUES (?, ?)",
+                productType.getNameType(), productType.getNameTable());
+    }
 
 }
