@@ -26,8 +26,8 @@ public class JdbcConfiguration {
     @Value("${jdbc.password}")
     private String getJdbcPassword;
 
-//    @Value("${jdbc.schema.path}")
-//    private String getJdbcSchemaPath;
+    @Value("${jdbc.schema.path}")
+    private String getJdbcSchemaPath;
 
     @Bean
     public DataSource dataSource() {
@@ -42,7 +42,7 @@ public class JdbcConfiguration {
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-//        resourceDatabasePopulator.addScript(new ClassPathResource(getJdbcSchemaPath));
+        resourceDatabasePopulator.addScript(new ClassPathResource(getJdbcSchemaPath));
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
