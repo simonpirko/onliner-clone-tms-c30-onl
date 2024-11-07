@@ -23,8 +23,8 @@ public class ShowcaseProductGroupsDao {
 
 
     public int save(ProductType productType) {
-        return jdbcTemplate.update("INSERT INTO product_type (name_type, name_table) VALUES (?, ?)",
-                productType.getNameType(), productType.getNameTable());
+        return jdbcTemplate.update("INSERT INTO product_type (type_name, photo) VALUES (?, ?)",
+                productType.getTypeName(), productType.getPhoto());
     }
 
 }
