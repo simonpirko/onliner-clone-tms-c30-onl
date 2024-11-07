@@ -1,39 +1,19 @@
 package by.tms.onlinerclonec30onl.domain;
 
-//@Setter
-//@Getter
-//@EqualsAndHashCode
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class ProductType {
     private long id;
-    private String nameType;
-    private String nameTable;
+    private String typeName;
+    private String photo;
 
-    public ProductType(String type, String table) {
-        this.nameType = type;
-        this.nameTable = table;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getNameType() {
-        return nameType;
-    }
-
-    public String getNameTable() {
-        return nameTable;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setNameType(String nameType) {
-        this.nameType = nameType;
-    }
-
-    public void setNameTable(String nameTable) {
-        this.nameTable = nameTable;
+    public ProductType(String nameType, String photo) {
+        this.typeName = nameType;
+        this.photo = photo;
     }
 }
