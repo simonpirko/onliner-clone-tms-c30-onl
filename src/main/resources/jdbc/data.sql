@@ -1,8 +1,8 @@
-INSERT INTO account (name, username, password, role)
-VALUES ('admin', 'admin', 'admin', 'admin'),
-       ('user', 'user', 'user', 'user'),
-       ('business', 'business', 'business', 'business'),
-       ('business2', 'business2', 'business2', 'business');
+INSERT INTO account (username, password, role)
+VALUES ('admin', 'admin', 'admin'),
+       ('user', 'user', 'user'),
+       ('business', 'business', 'business'),
+       ('business2', 'business2', 'business');
 
 INSERT INTO customer (id_account, first_name, last_name, phone, address)
 VALUES ('1', 'Иван', 'Иванов', '+375291111111', 'Брест'),

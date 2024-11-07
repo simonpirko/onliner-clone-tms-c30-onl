@@ -5,7 +5,6 @@ CREATE SCHEMA IF NOT EXISTS public;
 CREATE TABLE IF NOT EXISTS account
 (
     id          BIGINT GENERATED ALWAYS AS IDENTITY,    -- идентификатор таблицы
-    name        VARCHAR(30),                            -- имя аккаунта
     username    VARCHAR(30),                            -- логин
     password    VARCHAR(30),                            -- пароль
     role        VARCHAR(30)                             -- тип аккаунта
