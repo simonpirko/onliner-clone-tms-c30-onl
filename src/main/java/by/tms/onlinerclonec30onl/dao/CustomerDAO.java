@@ -19,13 +19,13 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     }
 
     @Override
-    public void save(Customer customer) {
-jdbcTemplate.update("INSERT INTO customer VALUES (default,?,?,?,?,?)",customer.getAccount().getId(),customer.getFirstName(),customer.getLastName(),customer.getPhone(),customer.getAddress());
+    public void save(Customer entity) {
+jdbcTemplate.update("INSERT INTO customer VALUES (default,?,?,?,?,?)",entity.getAccount().getId(),entity.getFirstName(),entity.getLastName(),entity.getPhone(),entity.getAddress());
     }
 
     @Override
-    public void delete(Customer customer) {
-jdbcTemplate.update("DELETE FROM customer WHERE id=?",customer.getId());
+    public void delete(Customer entity) {
+jdbcTemplate.update("DELETE FROM customer WHERE id=?",entity.getId());
     }
 
     @Override
@@ -34,8 +34,8 @@ jdbcTemplate.update("DELETE FROM customer WHERE id=?",id);
     }
 
     @Override
-    public void update(long id, Customer customer) {
-        jdbcTemplate.update("UPDATE customer SET id_account = ?,first_name = ?,last_name = ?,phone = ?, address = ? WHERE id = ?",customer.getAccount().getId(),customer.getFirstName(),customer.getLastName(),customer.getPhone(),customer.getAddress(),id);
+    public void update(long id, Customer entity) {
+        jdbcTemplate.update("UPDATE customer SET id_account = ?,first_name = ?,last_name = ?,phone = ?, address = ? WHERE id = ?",entity.getAccount().getId(),entity.getFirstName(),entity.getLastName(),entity.getPhone(),entity.getAddress(),id);
     }
 
     @Override
