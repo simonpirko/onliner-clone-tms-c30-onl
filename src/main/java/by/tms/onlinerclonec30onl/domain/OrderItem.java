@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
 public class OrderItem {
 
     private long id;
-    private Order order;
+    private Orders orders;
     private ShopProduct shopProduct;
     private int quantity;
     private double price;
