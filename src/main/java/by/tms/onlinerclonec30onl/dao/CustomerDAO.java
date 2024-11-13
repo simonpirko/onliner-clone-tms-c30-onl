@@ -2,6 +2,7 @@ package by.tms.onlinerclonec30onl.dao;
 
 
 import by.tms.onlinerclonec30onl.domain.Customer;
+import by.tms.onlinerclonec30onl.mappers.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,10 +13,12 @@ import java.util.List;
 @Component
 public class CustomerDAO implements InterfaceDAO<Customer> {
     private final JdbcTemplate jdbcTemplate;
+    private final CustomerMapper rowMapper;
 
     @Autowired
-    public CustomerDAO(JdbcTemplate jdbcTemplate) {
+    public CustomerDAO(JdbcTemplate jdbcTemplate, CustomerMapper rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.rowMapper = rowMapper;
     }
 
     @Override
@@ -40,7 +43,7 @@ jdbcTemplate.update("DELETE FROM customer WHERE id=?",id);
 
     @Override
     public List<Customer> findAll() {
-        return jdbcTemplate.query("SELECT * FROM customer", new BeanPropertyRowMapper<>(Customer.class));
+        return jdbcTemplate.query("SELECT * FROM customer", rowMapper);
     }
 
     @Override

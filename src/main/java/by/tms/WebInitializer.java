@@ -16,6 +16,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new Class[]{RootConfiguration.class, WebConfiguration.class, JdbcConfiguration.class};
     }
 
+
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
