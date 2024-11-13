@@ -30,6 +30,9 @@ public class WebConfiguration {
     @Value("${thymeleaf.cache}")
     private Boolean getGetThymeleafCache;
 
+    @Value("${thymeleaf.encoding}")
+    private String getThymeleafEncoding;
+
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -38,6 +41,7 @@ public class WebConfiguration {
         templateResolver.setSuffix(getGetThymeleafSuffix);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCacheable(getGetThymeleafCache);
+        templateResolver.setCharacterEncoding(getThymeleafEncoding);
         return templateResolver;
     }
 
@@ -53,6 +57,7 @@ public class WebConfiguration {
     public ThymeleafViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding(getThymeleafEncoding);
         return viewResolver;
     }
 }
