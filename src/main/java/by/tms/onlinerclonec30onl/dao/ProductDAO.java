@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ProductDAO implements InterfaceDAO<Product> {
@@ -43,7 +44,7 @@ public class ProductDAO implements InterfaceDAO<Product> {
     }
 
     @Override
-    public Product findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM product WHERE id=?",new Object[]{id},rowMapper).stream().findFirst().orElse(new Product());
+    public Optional<Product> findByID(long id) {
+        return Optional.ofNullable( jdbcTemplate.queryForObject("SELECT * FROM product WHERE id=?",rowMapper, id));
     }
 }

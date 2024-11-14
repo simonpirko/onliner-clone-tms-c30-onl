@@ -1,13 +1,13 @@
 package by.tms.onlinerclonec30onl.dao;
 
 import by.tms.onlinerclonec30onl.domain.ProductPhoto;
-import by.tms.onlinerclonec30onl.domain.ProductPhoto;
 import by.tms.onlinerclonec30onl.mappers.ProductPhotoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -45,7 +45,7 @@ public class ProductPhotoDAO implements InterfaceDAO<ProductPhoto> {
     }
 
     @Override
-    public ProductPhoto findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM product_photo WHERE id=?",new Object[]{id},rowMapper).stream().findFirst().orElse(new ProductPhoto());
+    public Optional<ProductPhoto> findByID(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM product_photo WHERE id=?",rowMapper,id));
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class AccountDAO implements InterfaceDAO<Account>{
@@ -44,7 +45,7 @@ public class AccountDAO implements InterfaceDAO<Account>{
     }
 
     @Override
-    public Account findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM account WHERE id=?",new Object[]{id},rowMapper).stream().findFirst().orElse(new Account());
-    }
+    public Optional<Account> findByID(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM account WHERE id=?",rowMapper,id));
+}
 }
