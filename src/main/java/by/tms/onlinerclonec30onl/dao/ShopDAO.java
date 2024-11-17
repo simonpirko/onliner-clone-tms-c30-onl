@@ -49,4 +49,8 @@ public class ShopDAO implements InterfaceDAO<Shop> {
     public Shop findByID(long id) {
         return jdbcTemplate.query("SELECT * FROM shop WHERE id=?",new Object[]{id},rowMapper).stream().findFirst().orElse(new Shop());
     }
+
+    public Shop findByName(String name){
+        return jdbcTemplate.query("SELECT * FROM shop WHERE name=?",new Object[]{name},rowMapper).stream().findFirst().orElse(new Shop());
+    }
     }
