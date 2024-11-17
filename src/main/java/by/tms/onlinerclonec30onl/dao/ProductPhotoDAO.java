@@ -12,9 +12,14 @@ import java.util.Optional;
 
 @Component
 public class ProductPhotoDAO implements InterfaceDAO<ProductPhoto> {
-    private final JdbcTemplate jdbcTemplate;
-    private final ProductPhotoMapper rowMapper;
-@Autowired
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private ProductPhotoMapper rowMapper;
+
+    @Autowired
     public ProductPhotoDAO(JdbcTemplate jdbcTemplate, ProductPhotoMapper rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.rowMapper = rowMapper;
@@ -47,5 +52,9 @@ public class ProductPhotoDAO implements InterfaceDAO<ProductPhoto> {
     @Override
     public Optional<ProductPhoto> findByID(long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM product_photo WHERE id=?",rowMapper,id));
+    }
+
+    public List<String> findAllByProductId(long productId) {
+        return jdbcTemplate.queryForList("SELECT photo FROM product_photo WHERE id_product = ?", String.class, productId);
     }
 }

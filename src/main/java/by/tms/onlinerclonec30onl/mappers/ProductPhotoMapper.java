@@ -12,14 +12,15 @@ import java.sql.SQLException;
 
 @Component
 public class ProductPhotoMapper implements RowMapper<ProductPhoto> {
+
     @Autowired
-   private ProductDAO productDAO;
+    private ProductDAO productDAO;
 
     @Override
     public ProductPhoto mapRow(ResultSet rs, int rowNum) throws SQLException {
         ProductPhoto productPhoto = new ProductPhoto();
-        Product product = productDAO.findByID(rs.getInt("id_product"));
-        productPhoto.setProduct(product);
+//        Product product = productDAO.findByID(rs.getInt("id_product"));
+//        productPhoto.setProduct(product);
         productPhoto.setPhoto(rs.getString("photo"));
         productPhoto.setId(rs.getLong("id"));
 

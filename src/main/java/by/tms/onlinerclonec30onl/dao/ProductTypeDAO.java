@@ -5,6 +5,7 @@ import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.mappers.ProductTypeMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;

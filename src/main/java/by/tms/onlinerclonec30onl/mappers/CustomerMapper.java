@@ -17,8 +17,8 @@ public class CustomerMapper implements RowMapper<Customer> {
     @Override
     public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
         Customer customer = new Customer();
-        Account account = accountDAO.findByID(rs.getInt("id_account"));
-        customer.setAccount(account);
+//        Account account = accountDAO.findByID(rs.getInt("id_account"));
+//        customer.setAccount(account);
         customer.setId(rs.getLong("id"));
         customer.setFirstName(rs.getString("first_name"));
         customer.setLastName(rs.getString("last_name"));
