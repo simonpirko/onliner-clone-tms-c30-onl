@@ -2,15 +2,19 @@ package by.tms.onlinerclonec30onl.service;
 
 import by.tms.onlinerclonec30onl.dao.ProductDAO;
 import by.tms.onlinerclonec30onl.dao.ProductTypeDAO;
+import by.tms.onlinerclonec30onl.dao.ShopDAO;
 import by.tms.onlinerclonec30onl.dao.ShopProductDAO;
 import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.domain.ProductType;
+import by.tms.onlinerclonec30onl.dto.ProductDTO;
 import by.tms.onlinerclonec30onl.dto.ProductFromTypeDto;
+import by.tms.onlinerclonec30onl.dto.ProductShopDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -50,13 +54,13 @@ public class ProductService {
   
   public ProductDTO getProductPageData(Long id) {
         ProductDTO productDTO = new ProductDTO();
-        productDTO.setProduct(productDAO.findByID(id));
+        productDTO.setProduct(productDAO.findByID(id).get());
         List<Map<String, Object>> allByIDProduct = shopProductDAO.findAllByIDProduct(id);
         List<ProductShopDTO> productShopDTOList = new ArrayList<>();
         for (Map<String, Object> map : allByIDProduct) {
             ProductShopDTO productShopDTO = new ProductShopDTO();
             productShopDTO.setIdShop((Long) map.get("id_shop"));
-            productShopDTO.setNameShop(shopDAO.findByID((Long) map.get("id_shop")).getName());
+            productShopDTO.setNameShop(shopDAO.findByID((Long) map.get("id_shop")).get().getName());
             String str = map.get("price").toString();
             Double price = Double.valueOf(str);
             productShopDTO.setPriceShop(price);
