@@ -1,5 +1,6 @@
-package by.tms.onlinerclonec30onl.domain;
+package by.tms.onlinerclonec30onl.dto;
 
+import by.tms.onlinerclonec30onl.domain.ProductPhoto;
 import lombok.*;
 
 import java.util.List;
@@ -9,11 +10,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
-public class Product {
+public class ProductFromTypeDto {
 
     private Long id;
-    private ProductType productType;
     private String name;
     private String description;
+    private Double price;
     private List<String> photos;
 }

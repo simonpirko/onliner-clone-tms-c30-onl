@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<div th:insert="menubar.html"></div>
+    <div class="container">
+        <div class="row">
+            <div class="row col-3">
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Категории
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li th:each="type : ${allTypes}">
+                            <a class="dropdown-item" th:href="@{/product(id=${type.id})}" th:text="${type.typeName}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row col-9">
+                <div th:each="product : ${products}" class="card col-4">
+                    <img class="card-img-top" style="max-width:100%; height:200px; object-fit: cover;"
+                         th:src="${#lists.size(product.photos) > 0} ? (${product.photos[0]})
+                         : 'https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg'">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <p class="card-text" th:text="${product.price != null} ? ('Цена от: ' + ${product.price}) : 'Нет в продаже'"></p>
+                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
