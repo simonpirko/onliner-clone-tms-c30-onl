@@ -1,14 +1,13 @@
 package by.tms.onlinerclonec30onl.dao;
 
 import by.tms.onlinerclonec30onl.domain.Shop;
-import by.tms.onlinerclonec30onl.domain.Shop;
 import by.tms.onlinerclonec30onl.mappers.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ShopDAO implements InterfaceDAO<Shop> {
@@ -46,7 +45,11 @@ public class ShopDAO implements InterfaceDAO<Shop> {
     }
 
     @Override
-    public Shop findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM shop WHERE id=?",new Object[]{id},rowMapper).stream().findFirst().orElse(new Shop());
+    public Optional<Shop> findByID(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop WHERE id=?",rowMapper, id));
+    }
+
+    public Shop findByName(String name){
+        return jdbcTemplate.query("SELECT * FROM shop WHERE name=?",new Object[]{name},rowMapper).stream().findFirst().orElse(new Shop());
     }
     }

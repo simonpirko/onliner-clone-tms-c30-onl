@@ -17,8 +17,8 @@ public class ShopMapper implements RowMapper<Shop> {
     @Override
     public Shop mapRow(ResultSet rs, int rowNum) throws SQLException {
         Shop shop = new Shop();
-        Account account = accountDAO.findByID(rs.getInt("id_account"));
-        shop.setAccount(account);
+//        Account account = accountDAO.findByID(rs.getInt("id_account"));
+//        shop.setAccount(account);
         shop.setId(rs.getLong("id"));
         shop.setName(rs.getString("name"));
 

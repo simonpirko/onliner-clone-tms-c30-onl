@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
@@ -46,14 +47,18 @@ public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
         return jdbcTemplate.query("SELECT * FROM shop_product", rowMapper);
     }
 
-    @Override
-    public ShopProduct findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM shop_product WHERE id=?", new Object[]{id}, rowMapper).stream().findFirst().orElse(new ShopProduct());
-    }
-
-
     public List<Map<String, Object>> findAllByIDProduct(long idProduct) {
         return jdbcTemplate.queryForList("SELECT * FROM shop_product WHERE id_product=?", idProduct);
 
+    public Optional<ShopProduct> findByID(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop_product WHERE id=?",rowMapper,id));
+    }
+
+    public Optional<Double> findMinPriceByID(long id) {
+       try {
+           return Optional.of(jdbcTemplate.queryForObject("SELECT min(price) FROM shop_product WHERE id_product = ?", Double.class, id));
+       } catch (NullPointerException e) {
+           return Optional.empty();
+       }
     }
 }

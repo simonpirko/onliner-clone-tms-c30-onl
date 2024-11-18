@@ -1,13 +1,13 @@
 package by.tms.onlinerclonec30onl.dao;
 
 import by.tms.onlinerclonec30onl.domain.OrderItem;
-import by.tms.onlinerclonec30onl.domain.OrderItem;
 import by.tms.onlinerclonec30onl.mappers.OrderIteemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class OrderItemDAO implements InterfaceDAO<OrderItem> {
@@ -46,7 +46,7 @@ public class OrderItemDAO implements InterfaceDAO<OrderItem> {
     }
 
     @Override
-    public OrderItem findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM order_item WHERE id=?",new Object[]{id},rowMapper).stream().findFirst().orElse(new OrderItem());
+    public Optional<OrderItem> findByID(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM order_item WHERE id=?",rowMapper,id));
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CustomerDAO implements InterfaceDAO<Customer> {
@@ -47,7 +48,7 @@ jdbcTemplate.update("DELETE FROM customer WHERE id=?",id);
     }
 
     @Override
-    public Customer findByID(long id) {
-        return jdbcTemplate.query("SELECT * FROM customer WHERE id=?",new Object[]{id},new BeanPropertyRowMapper<>(Customer.class)).stream().findFirst().orElse(new Customer());
+    public Optional<Customer> findByID(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM customer WHERE id=?",rowMapper, id));
     }
 }

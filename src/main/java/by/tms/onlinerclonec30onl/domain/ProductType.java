@@ -12,8 +12,8 @@ public class ProductType {
     private String typeName;
     private String photo;
 
-    public ProductType(String nameType, String photo) {
-        this.typeName = nameType;
+    public ProductType(String typeName, String photo) {
+        this.typeName = typeName;
         this.photo = photo;
     }
 }
