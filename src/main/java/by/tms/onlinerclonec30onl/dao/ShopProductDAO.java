@@ -49,6 +49,7 @@ public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
 
     public List<Map<String, Object>> findAllByIDProduct(long idProduct) {
         return jdbcTemplate.queryForList("SELECT * FROM shop_product WHERE id_product=?", idProduct);
+    }
 
     public Optional<ShopProduct> findByID(long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop_product WHERE id=?",rowMapper,id));
