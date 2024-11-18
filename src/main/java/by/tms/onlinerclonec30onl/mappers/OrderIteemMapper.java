@@ -22,9 +22,9 @@ public class OrderIteemMapper implements RowMapper<OrderItem> {
     @Override
     public OrderItem mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderItem orderItem = new OrderItem();
-        Orders orders = ordersDAO.findByID(rs.getInt("id_orders"));
+        Orders orders = ordersDAO.findByID(rs.getInt("id_orders")).get();
         orderItem.setOrders(orders);
-        ShopProduct shopProduct = shopProductDAO.findByID(rs.getInt("id_shop_product"));
+        ShopProduct shopProduct = shopProductDAO.findByID(rs.getInt("id_shop_product")).get();
         orderItem.setShopProduct(shopProduct);
         orderItem.setQuantity(rs.getInt("quantity"));
         orderItem.setPrice(rs.getDouble("price"));

@@ -21,10 +21,10 @@ public class ShopProductMapper implements RowMapper<ShopProduct> {
     @Override
     public ShopProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
         ShopProduct shopProduct = new ShopProduct();
-        Shop shop = shopDAO.findByID(rs.getInt("id_shop"));
+        Shop shop = shopDAO.findByID(rs.getInt("id_shop")).get();
         shopProduct.setShop(shop);
         shopProduct.setId(rs.getLong("id"));
-        Product product = productDAO.findByID(rs.getInt("id_product"));
+        Product product = productDAO.findByID(rs.getInt("id_product")).get();
         shopProduct.setProduct(product);
         shopProduct.setPrice(rs.getDouble("price"));
         shopProduct.setDelivery(rs.getString("delivery"));

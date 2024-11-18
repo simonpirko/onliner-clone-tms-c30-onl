@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Component
 public class ShopMapper implements RowMapper<Shop> {
@@ -17,7 +18,7 @@ public class ShopMapper implements RowMapper<Shop> {
     @Override
     public Shop mapRow(ResultSet rs, int rowNum) throws SQLException {
         Shop shop = new Shop();
-        Account account = accountDAO.findByID(rs.getInt("id_account"));
+        Account account = accountDAO.findByID(rs.getInt("id_account")).get(); //поправить
         shop.setAccount(account);
         shop.setId(rs.getLong("id"));
         shop.setName(rs.getString("name"));

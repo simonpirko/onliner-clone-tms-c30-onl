@@ -35,14 +35,7 @@ public class ShowcaseProductGroupsController {
 
         List<ProductType> productTypes = new ArrayList<>();
         productTypes = showcaseProductGroupsDao.index();
-        Account account = new Account();
-        //account.setId(662L);
-        account.setPassword("123");
-        account.setUsername("NEw");
-//System.out.println(account);
-        System.out.println(customerDAO.findAll());
-        //customerDAO.deleteById(5L);
-        //customerDAO.save(customer);
+
 
         return "index";
     }
