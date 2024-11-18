@@ -19,10 +19,10 @@ public class OrdersMapper implements RowMapper<Orders> {
     @Override
     public Orders mapRow(ResultSet rs, int rowNum) throws SQLException {
         Orders orders = new Orders();
-//        Customer customer = customerDAO.findByID(rs.getInt("id_customer"));
-//        orders.setCustomer(customer);
-       orders.setId(rs.getInt("id"));
-       orders.setPhone(rs.getString("phone"));
+        Customer customer = customerDAO.findByID(rs.getInt("id_customer")).get();
+        orders.setCustomer(customer);
+        orders.setId(rs.getInt("id"));
+        orders.setPhone(rs.getString("phone"));
         orders.setStatus(Orders.Status.valueOf(rs.getString("status")));
         orders.setDeliveryAddress(rs.getString("address"));
         orders.setFirstName(rs.getString("first_name"));

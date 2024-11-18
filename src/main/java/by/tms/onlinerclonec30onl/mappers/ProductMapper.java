@@ -27,8 +27,8 @@ public class ProductMapper implements RowMapper<Product> {
     @Override
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
         Product product = new Product();
-        Optional<ProductType> productType = productTypeDAO.findByID(rs.getInt("id_product_type"));
-        productType.ifPresent(product::setProductType);
+        ProductType productType = productTypeDAO.findByID(rs.getInt("id_product_type")).get();
+        product.setProductType(productType);
         product.setId(rs.getLong("id"));
         product.setName(rs.getString("name"));
         product.setDescription(rs.getString("description"));

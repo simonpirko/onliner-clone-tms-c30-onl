@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 @Component
 public class ShopProductMapper implements RowMapper<ShopProduct> {
     @Autowired
@@ -21,11 +22,11 @@ public class ShopProductMapper implements RowMapper<ShopProduct> {
     @Override
     public ShopProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
         ShopProduct shopProduct = new ShopProduct();
-//        Shop shop = shopDAO.findByID(rs.getInt("id_shop"));
-//        shopProduct.setShop(shop);
+        Shop shop = shopDAO.findByID(rs.getInt("id_shop")).get();
+        shopProduct.setShop(shop);
+        Product product = productDAO.findByID(rs.getInt("id_product")).get();
+        shopProduct.setProduct(product);
         shopProduct.setId(rs.getLong("id"));
-//        Product product = productDAO.findByID(rs.getInt("id_product"));
-//        shopProduct.setProduct(product);
         shopProduct.setPrice(rs.getDouble("price"));
         shopProduct.setDelivery(rs.getString("delivery"));
 

@@ -19,11 +19,10 @@ public class ProductPhotoMapper implements RowMapper<ProductPhoto> {
     @Override
     public ProductPhoto mapRow(ResultSet rs, int rowNum) throws SQLException {
         ProductPhoto productPhoto = new ProductPhoto();
-//        Product product = productDAO.findByID(rs.getInt("id_product"));
-//        productPhoto.setProduct(product);
+        Product product = productDAO.findByID(rs.getInt("id_product")).get();
+        productPhoto.setProduct(product);
         productPhoto.setPhoto(rs.getString("photo"));
         productPhoto.setId(rs.getLong("id"));
-
 
         return productPhoto;
     }
