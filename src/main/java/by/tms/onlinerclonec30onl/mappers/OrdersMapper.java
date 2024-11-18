@@ -21,8 +21,8 @@ public class OrdersMapper implements RowMapper<Orders> {
         Orders orders = new Orders();
         Customer customer = customerDAO.findByID(rs.getInt("id_customer")).get();
         orders.setCustomer(customer);
-       orders.setId(rs.getInt("id"));
-       orders.setPhone(rs.getString("phone"));
+        orders.setId(rs.getInt("id"));
+        orders.setPhone(rs.getString("phone"));
         orders.setStatus(Orders.Status.valueOf(rs.getString("status")));
         orders.setDeliveryAddress(rs.getString("address"));
         orders.setFirstName(rs.getString("first_name"));

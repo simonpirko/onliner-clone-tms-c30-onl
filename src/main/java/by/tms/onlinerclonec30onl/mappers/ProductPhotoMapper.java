@@ -12,8 +12,9 @@ import java.sql.SQLException;
 
 @Component
 public class ProductPhotoMapper implements RowMapper<ProductPhoto> {
+
     @Autowired
-   private ProductDAO productDAO;
+    private ProductDAO productDAO;
 
     @Override
     public ProductPhoto mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -22,7 +23,6 @@ public class ProductPhotoMapper implements RowMapper<ProductPhoto> {
         productPhoto.setProduct(product);
         productPhoto.setPhoto(rs.getString("photo"));
         productPhoto.setId(rs.getLong("id"));
-
 
         return productPhoto;
     }
