@@ -5,7 +5,6 @@ import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.mappers.ProductTypeMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,22 +21,23 @@ public class ProductTypeDAO implements InterfaceDAO<ProductType> {
     }
     @Override
     public void save(ProductType entity) {
-        jdbcTemplate.update("INSERT INTO product_type VALUES (default,?,?)",entity.getTypeName(),entity.getPhoto());
+        jdbcTemplate.update("INSERT INTO product_type VALUES (default, ?, ?)", entity.getTypeName(), entity.getPhoto());
     }
 
     @Override
     public void delete(ProductType entity) {
-        jdbcTemplate.update("DELETE FROM product_type WHERE id=?",entity.getId());
+        jdbcTemplate.update("DELETE FROM product_type WHERE id = ?", entity.getId());
     }
 
     @Override
     public void deleteById(long id) {
-        jdbcTemplate.update("DELETE FROM product_type WHERE id=?",id);
+        jdbcTemplate.update("DELETE FROM product_type WHERE id = ?", id);
     }
 
     @Override
     public void update(long id, ProductType entity) {
-        jdbcTemplate.update("UPDATE product_type SET type_name = ?, photo = ? WHERE id = ?",entity.getTypeName(),entity.getPhoto(),id);
+        jdbcTemplate.update("UPDATE product_type SET type_name = ?, photo = ? WHERE id = ?",
+                entity.getTypeName(), entity.getPhoto(),id);
     }
 
     @Override
@@ -47,6 +47,7 @@ public class ProductTypeDAO implements InterfaceDAO<ProductType> {
 
     @Override
     public Optional<ProductType> findByID(long id) {
-        return Optional.ofNullable( jdbcTemplate.queryForObject("SELECT * FROM product_type WHERE id=?",rowMapper, id));
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM product_type WHERE id = ?",
+                rowMapper, id));
     }
 }

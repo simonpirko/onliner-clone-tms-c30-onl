@@ -5,12 +5,15 @@ import java.util.Optional;
 
 public interface InterfaceDAO<T> {
 
-public void save(T entity);
-public void delete(T entity);
-public void deleteById(long id);
-public void update(long id,T entity);
-public List<T> findAll();
-public Optional<T> findByID(long id);
+    public void save(T entity);
 
+    public void delete(T entity);
+
+    public void deleteById(long id);
+
+    public void update(long id, T entity);
+
+    public List<T> findAll();
+
+    public Optional<T> findByID(long id);
 }
-

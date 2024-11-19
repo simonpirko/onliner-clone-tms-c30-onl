@@ -10,7 +10,6 @@ import java.sql.SQLException;
 @Component
 public class ProductTypeMapper implements RowMapper<ProductType> {
 
-
     @Override
     public ProductType mapRow(ResultSet rs, int rowNum) throws SQLException {
         ProductType productType = new ProductType();
