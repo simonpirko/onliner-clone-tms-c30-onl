@@ -7,14 +7,13 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-@EqualsAndHashCode
 public class ProductType {
     private long id;
-    private String nameType;
-    private String nameTable;
+    private String typeName;
+    private String photo;
 
-    public ProductType(String type, String table) {
-        this.nameType = type;
-        this.nameTable = table;
+    public ProductType(String typeName, String photo) {
+        this.typeName = typeName;
+        this.photo = photo;
     }
 }
