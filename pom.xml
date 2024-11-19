@@ -60,6 +60,12 @@
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.21.0</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
 

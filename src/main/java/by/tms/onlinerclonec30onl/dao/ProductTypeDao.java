@@ -1,43 +1,52 @@
 package by.tms.onlinerclonec30onl.dao;
 
+
 import by.tms.onlinerclonec30onl.domain.ProductType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import by.tms.onlinerclonec30onl.mappers.ProductTypeMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
-public class ProductTypeDao {
+public class ProductTypeDAO implements InterfaceDAO<ProductType> {
     private final JdbcTemplate jdbcTemplate;
+    private final ProductTypeMapper rowMapper;
 
-    @Autowired
-    public ProductTypeDao(JdbcTemplate jdbcTemplate) {
+    public ProductTypeDAO(JdbcTemplate jdbcTemplate, ProductTypeMapper rowMapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.rowMapper = rowMapper;
+
+    }
+    @Override
+    public void save(ProductType entity) {
+        jdbcTemplate.update("INSERT INTO product_type VALUES (default,?,?)",entity.getTypeName(),entity.getPhoto());
     }
 
-    public List<ProductType> index() {
-        return jdbcTemplate.query("SELECT * FROM product_type",
-                new BeanPropertyRowMapper<>(ProductType.class));
+    @Override
+    public void delete(ProductType entity) {
+        jdbcTemplate.update("DELETE FROM product_type WHERE id=?",entity.getId());
     }
 
-    public List<ProductType> show(long id) {
-        return jdbcTemplate.query("SELECT * FROM product_type WHERE id = ?",
-                new Object[]{id}, new BeanPropertyRowMapper<>(ProductType.class));
+    @Override
+    public void deleteById(long id) {
+        jdbcTemplate.update("DELETE FROM product_type WHERE id=?",id);
     }
 
-    public int save(ProductType productType) {
-        return jdbcTemplate.update("INSERT INTO product_type (name_type, name_table) VALUES (?, ?)",
-                productType.getNameType(), productType.getNameTable());
+    @Override
+    public void update(long id, ProductType entity) {
+        jdbcTemplate.update("UPDATE product_type SET type_name = ?, photo = ? WHERE id = ?",entity.getTypeName(),entity.getPhoto(),id);
     }
 
-    public int update(ProductType productType, long id) {
-        return jdbcTemplate.update("UPDATE product_type SET name_type = ?, name_table = ? WHERE id = ?",
-                productType.getNameType(), productType.getNameTable(), id);
+    @Override
+    public List<ProductType> findAll() {
+        return jdbcTemplate.query("SELECT * FROM product_type", rowMapper);
     }
 
-    public int delete(long id) {
-        return jdbcTemplate.update("DELETE FROM product_type WHERE id = ?", id);
+    @Override
+    public Optional<ProductType> findByID(long id) {
+        return Optional.ofNullable( jdbcTemplate.queryForObject("SELECT * FROM product_type WHERE id=?",rowMapper, id));
     }
 }
