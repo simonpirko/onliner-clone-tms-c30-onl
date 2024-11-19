@@ -31,19 +31,19 @@ public class ShowcaseProductGroupsController {
     @GetMapping
     public String index() {
         ProductType productType = new ProductType("Велосипеды", "velosipedi");
-        productTypeDao.save(productType);
+//        productTypeDao.save(productType);
 
-        List<ProductType> productTypes = new ArrayList<>();
-        productTypes = productTypeDao.index();
-
-
-        List<ProductType> productTypesId = new ArrayList<>();
-        productTypesId = productTypeDao.show(2);
-
-        ProductType productTypeUpdate = new ProductType("Коляски", "koliaski");
-        productTypeDao.update(productTypeUpdate, 7);
-
-        productTypeDao.delete(11);
+//        List<ProductType> productTypes = new ArrayList<>();
+//        productTypes = productTypeDao.index();
+//
+//
+//        List<ProductType> productTypesId = new ArrayList<>();
+//        productTypesId = productTypeDao.show(2);
+//
+//        ProductType productTypeUpdate = new ProductType("Коляски", "koliaski");
+//        productTypeDao.update(productTypeUpdate, 7);
+//
+//        productTypeDao.delete(11);
 
 
         return "index";
