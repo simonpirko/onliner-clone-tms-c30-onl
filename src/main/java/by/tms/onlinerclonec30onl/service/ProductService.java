@@ -28,7 +28,7 @@ public class ProductService {
 
     @Autowired
     private ProductTypeDAO productTypeDAO;
-  
+
     @Autowired
     private ShopDAO shopDAO;
 
@@ -51,8 +51,8 @@ public class ProductService {
         }
         return productsFromTypeDto;
     }
-  
-  public ProductDTO getProductPageData(Long id) {
+
+    public ProductDTO getProductPageData(Long id) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setProduct(productDAO.findByID(id).get());
         List<Map<String, Object>> allByIDProduct = shopProductDAO.findAllByIDProduct(id);
@@ -67,9 +67,11 @@ public class ProductService {
             productShopDTO.setDeliveryShop((String) map.get("delivery"));
             productShopDTOList.add(productShopDTO);
         }
-
+        productDTO.getProduct().setPhotos(inspectPhotoAndSetDefault(productDTO.getProduct().getPhotos()));
         productDTO.setChooseShop(defaultBestPrice(productShopDTOList));
         productDTO.setProductShopDTOList(sortByPriceProductShopDTO(productShopDTOList));
+
+
         return productDTO;
     }
 
@@ -84,8 +86,22 @@ public class ProductService {
                 }
             }
         }
-
         return productShopDTOList;
+    }
+
+    private List<String> inspectPhotoAndSetDefault(List<String> photos) {
+        String defaultNoImage = "https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg";
+        if (photos.isEmpty()) {
+            for (int i = 0; i < 5; i++) {
+                photos.add(defaultNoImage);
+            }
+        }
+        if (!photos.isEmpty() && photos.size()<=5) {
+            for (int i = photos.size(); photos.size() < 5; i++) {
+                photos.add(defaultNoImage);
+            }
+        }
+        return photos;
     }
 
     public Optional<ProductType> getProductTypeById(Long typeId) {
@@ -95,7 +111,7 @@ public class ProductService {
     public List<ProductType> getAllProductTypes() {
         return productTypeDAO.findAll();
     }
-  
+
     private ProductShopDTO defaultBestPrice(List<ProductShopDTO> productShopDTOList) {
         return productShopDTOList.get(0);
     }
