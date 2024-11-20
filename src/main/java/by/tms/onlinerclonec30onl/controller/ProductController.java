@@ -26,6 +26,7 @@ public class ProductController {
     @GetMapping("/product/{idProduct}")
     public String index(@PathVariable(value = "idProduct") Long idProduct, Model model) {
         model.addAttribute("productDTO", productService.getProductPageData(idProduct));
+
         return "product";
     }
 
