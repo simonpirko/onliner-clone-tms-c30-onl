@@ -1,6 +1,5 @@
 package by.tms.onlinerclonec30onl.controller;
 
-import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.dto.ProductFromTypeDto;
 import by.tms.onlinerclonec30onl.service.ProductService;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/catalog")
 public class ProductController {
     private ProductService productService;
 
