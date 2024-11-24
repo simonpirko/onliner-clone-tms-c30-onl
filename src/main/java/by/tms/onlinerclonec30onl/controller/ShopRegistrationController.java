@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/shop_registration")
+@RequestMapping("/shop/registration")
 public class ShopRegistrationController {
 
     @Autowired
@@ -32,6 +32,6 @@ public class ShopRegistrationController {
             model.addAttribute("error", "This name is already taken");
             return "shopRegistration";
         }
-        return "redirect:/shop_profile";
+        return "redirect:/shop/profile";
     }
 }
