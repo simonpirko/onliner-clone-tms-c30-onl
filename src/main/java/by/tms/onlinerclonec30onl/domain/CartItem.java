@@ -8,9 +8,6 @@ import lombok.*;
 @Builder
 @ToString
 public class CartItem {
-
-    private long id;
-    private ShopProduct shopProduct;
-    private int quantity;
-    private double price;
+    private Product product;
+    private Shop shop;
 }

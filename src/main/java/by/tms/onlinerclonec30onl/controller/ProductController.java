@@ -1,22 +1,25 @@
 package by.tms.onlinerclonec30onl.controller;
 
+import by.tms.onlinerclonec30onl.dao.AccountDAO;
+import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.dto.ProductFromTypeDto;
 import by.tms.onlinerclonec30onl.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/catalog")
 public class ProductController {
     private ProductService productService;
+    // удалить после создания Регистрации профиля!!!
+    @Autowired
+    private AccountDAO accountDAO;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -25,7 +28,8 @@ public class ProductController {
     @GetMapping("/product/{idProduct}")
     public String index(@PathVariable(value = "idProduct") Long idProduct, Model model) {
         model.addAttribute("productDTO", productService.getProductPageData(idProduct));
-
+        // удалить после создания Регистрации профиля!!!
+        model.addAttribute("CurrentUser",accountDAO.findByID(1).get());
         return "product";
     }
 
