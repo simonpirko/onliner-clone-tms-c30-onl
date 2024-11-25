@@ -25,13 +25,13 @@ public class ProductsTypesController {
         return "/productstypes/show";
     }
 
-    @GetMapping("/new")     //todo
+    @GetMapping("/new")
     public String add(Model model) {
         model.addAttribute("productType", new ProductType());
         return "/productstypes/add";
     }
 
-    @PostMapping            //todo
+    @PostMapping
     public String add(@ModelAttribute("productType") ProductType productType) {
         productTypeDAO.save(productType);
         return "redirect:" + PRODUCT_TYPES_CONTROLLER;
