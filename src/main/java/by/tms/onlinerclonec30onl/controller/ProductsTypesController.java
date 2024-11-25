@@ -1,7 +1,6 @@
 package by.tms.onlinerclonec30onl.controller;
 
 import by.tms.onlinerclonec30onl.dao.ProductTypeDAO;
-import by.tms.onlinerclonec30onl.domain.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,35 +18,9 @@ public class ProductsTypesController {
         this.productTypeDAO = productTypeDAO;
     }
 
-    @GetMapping//localhost:8080/productstypes
+    @GetMapping
     public String showAll(Model model) {
         model.addAttribute("productsTypes", productTypeDAO.findAll());
         return "/productstypes/show";
     }
-
-    @GetMapping("/new")
-    public String add(Model model) {
-        model.addAttribute("productType", new ProductType());
-        return "/productstypes/add";
-    }
-
-    @PostMapping
-    public String add(@ModelAttribute("productType") ProductType productType) {
-        productTypeDAO.save(productType);
-        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
-    }
-
-
-//
-//    @PatchMapping           //todo
-//    public String update(@ModelAttribute ProductTypeDto productTypeDto) {
-//
-//        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
-//    }
-//
-//    @DeleteMapping          //todo
-//    public String delete(@ModelAttribute ProductTypeDto productTypeDto) {
-//
-//        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
-//    }
 }
