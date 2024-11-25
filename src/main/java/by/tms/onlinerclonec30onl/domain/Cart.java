@@ -11,9 +11,6 @@ import java.util.List;
 @Builder
 @ToString
 public class Cart {
-
-    private Long id;
     private Account account;
     private List<CartItem> products = new ArrayList<>();
-
 }
