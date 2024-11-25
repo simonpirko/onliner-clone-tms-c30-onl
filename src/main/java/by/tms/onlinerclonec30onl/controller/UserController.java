@@ -1,16 +1,21 @@
 package by.tms.onlinerclonec30onl.controller;
 
+import by.tms.onlinerclonec30onl.dao.ProductDAO;
 import by.tms.onlinerclonec30onl.dao.ProductTypeDAO;
 import by.tms.onlinerclonec30onl.domain.Product;
+import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.dto.AddProductDTO;
 import by.tms.onlinerclonec30onl.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.lang.module.ModuleDescriptor;
 import java.util.ArrayList;
 
 
@@ -21,6 +26,8 @@ public class UserController {
    private ProductService productService;
     @Autowired
     ProductTypeDAO productTypeDAO;
+    @Autowired
+    ProductDAO productDAO;
     @Autowired
     HttpSession session;
     @GetMapping("/admin/add-product")
@@ -35,19 +42,21 @@ public class UserController {
         return "addProduct";
     }
     @PostMapping("/admin/add-product")
-    public String addProduct(AddProductDTO addProductDTO) {
+    public String addProductPreview(AddProductDTO addProductDTO) {
         session.setAttribute("productForAdd",productService.convertAddProductDTOToProduct(addProductDTO));
         return "redirect:/user/admin/add-product";
     }
-    @PostMapping("/admin/add-product/save-product")
-    public String saveProduct(AddProductDTO addProductDTO) {
-        session.setAttribute("productForAdd",productService.convertAddProductDTOToProduct(addProductDTO));
-        return "redirect:/user/admin";
+    @GetMapping("/admin/add-product/save-product")
+    public String saveProduct() {
+      //productDAO.save(productService.convertAddProductDTOToProduct((AddProductDTO) session.getAttribute("productForAdd")));
+        productDAO.save(((Product) session.getAttribute("productForAdd")));
+      session.setAttribute("productForAdd",new Product());
+        return "redirect:/user/admin/add-product";
     }
     @PostMapping("/admin/add-product/save-product-type")
     public String saveProductType(AddProductDTO addProductDTO) {
-        session.setAttribute("productForAdd",productService.convertAddProductDTOToProduct(addProductDTO));
-        return "redirect:/user/admin/addProduct";
+        productTypeDAO.save(productService.convertAddProductDTOToProductType(addProductDTO));
+        return "redirect:/user/admin/add-product";
     }
     @GetMapping ("/test")
     public String test() {

@@ -119,6 +119,13 @@ public class ProductService {
         return product;
     }
 
+    public ProductType convertAddProductDTOToProductType(AddProductDTO addProductDTO) {
+        ProductType productType = new ProductType();
+        productType.setTypeName(addProductDTO.getProductTypeName());
+        productType.setPhoto(addProductDTO.getProductTypePhotoUrl());
+        return productType;
+    }
+
     private List<String> inspectPhotoAndSetDefault(List<String> photos) {
         String defaultNoImage = "https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg";
         if (photos.isEmpty()) {

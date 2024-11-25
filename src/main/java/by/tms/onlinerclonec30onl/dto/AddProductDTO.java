@@ -19,6 +19,7 @@ public class AddProductDTO {
  @NotBlank
  private long productTypeId;
  private String productTypeName;
+ private String productTypePhotoUrl;
  private String productPhotoUrl1;
  private String productPhotoUrl2;
  private String productPhotoUrl3;
