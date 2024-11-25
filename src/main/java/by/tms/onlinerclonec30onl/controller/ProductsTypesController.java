@@ -2,7 +2,6 @@ package by.tms.onlinerclonec30onl.controller;
 
 import by.tms.onlinerclonec30onl.dao.ProductTypeDAO;
 import by.tms.onlinerclonec30onl.domain.ProductType;
-//import by.tms.onlinerclonec30onl.dto.ProductTypeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +13,10 @@ import static by.tms.onlinerclonec30onl.Constants.PRODUCT_TYPES_CONTROLLER;
 @RequestMapping(PRODUCT_TYPES_CONTROLLER)
 public class ProductsTypesController {
     private final ProductTypeDAO productTypeDAO;
-//    private final ProductTypeDTO productTypeDTO;
 
     @Autowired
-    public ProductsTypesController(ProductTypeDAO productTypeDAO/*,
-                                   ProductTypeDTO productTypeDTO*/) {
+    public ProductsTypesController(ProductTypeDAO productTypeDAO) {
         this.productTypeDAO = productTypeDAO;
-//        this.productTypeDTO = productTypeDTO;
     }
 
     @GetMapping//localhost:8080/productstypes

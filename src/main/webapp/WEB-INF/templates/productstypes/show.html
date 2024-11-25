@@ -12,7 +12,7 @@
 <hr>
 <div th:each="productType : ${productsTypes}">
     <ul class="pagination">
-        <a th:text="${productType.getPhoto()}">value</a>
+        <img th:src="${productType.getPhoto()}" class="w-40" height="120" alt="...">
         <a th:href="@{/productstype(id=${productType.getId()})}" th:text="${productType.getTypeName()}">value</a>
     </ul>
 </div>
