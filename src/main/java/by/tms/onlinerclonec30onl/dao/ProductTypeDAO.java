@@ -20,13 +20,14 @@ public class ProductTypeDAO implements InterfaceDAO<ProductType> {
 
     }
     @Override
-    public void save(ProductType entity) {
-        jdbcTemplate.update("INSERT INTO product_type VALUES (default, ?, ?)", entity.getTypeName(), entity.getPhoto());
+    public void save(ProductType productType) {
+        jdbcTemplate.update("INSERT INTO product_type VALUES (default, ?, ?)",
+                productType.getTypeName(), productType.getPhoto());
     }
 
     @Override
-    public void delete(ProductType entity) {
-        jdbcTemplate.update("DELETE FROM product_type WHERE id = ?", entity.getId());
+    public void delete(ProductType productType) {
+        jdbcTemplate.update("DELETE FROM product_type WHERE id = ?", productType.getId());
     }
 
     @Override
@@ -35,9 +36,9 @@ public class ProductTypeDAO implements InterfaceDAO<ProductType> {
     }
 
     @Override
-    public void update(long id, ProductType entity) {
+    public void update(long id, ProductType productType) {
         jdbcTemplate.update("UPDATE product_type SET type_name = ?, photo = ? WHERE id = ?",
-                entity.getTypeName(), entity.getPhoto(),id);
+                productType.getTypeName(), productType.getPhoto(),id);
     }
 
     @Override
