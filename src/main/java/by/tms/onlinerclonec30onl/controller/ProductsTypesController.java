@@ -36,19 +36,4 @@ public class ProductsTypesController {
         productTypeDAO.save(productType);
         return "redirect:" + PRODUCT_TYPES_CONTROLLER;
     }
-
-//
-//    @PatchMapping           //todo
-//    public String update(@ModelAttribute ProductTypeDto productTypeDto) {
-//
-//        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
-//    }
-//
-//    @DeleteMapping          //todo
-//    public String delete(@ModelAttribute ProductTypeDto productTypeDto) {
-//
-//        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
-//    }
-
-
 }
