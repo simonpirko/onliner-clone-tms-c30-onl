@@ -36,4 +36,5 @@ public class ProductsTypesController {
         productTypeDAO.save(productType);
         return "redirect:" + PRODUCT_TYPES_CONTROLLER;
     }
+
 }
