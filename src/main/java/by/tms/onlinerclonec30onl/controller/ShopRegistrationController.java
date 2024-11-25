@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/shop_registration")
+@RequestMapping("/shop-registration")
 public class ShopRegistrationController {
 
     @Autowired

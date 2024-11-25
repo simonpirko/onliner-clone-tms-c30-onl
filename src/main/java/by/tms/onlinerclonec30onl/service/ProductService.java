@@ -6,6 +6,7 @@ import by.tms.onlinerclonec30onl.dao.ShopDAO;
 import by.tms.onlinerclonec30onl.dao.ShopProductDAO;
 import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.domain.ProductType;
+import by.tms.onlinerclonec30onl.dto.AddProductDTO;
 import by.tms.onlinerclonec30onl.dto.ProductDTO;
 import by.tms.onlinerclonec30onl.dto.ProductFromTypeDto;
 import by.tms.onlinerclonec30onl.dto.ProductShopDTO;
@@ -74,6 +75,11 @@ public class ProductService {
 
         return productDTO;
     }
+    public AddProductDTO getProductPageDataForAddProduct(Product product) {
+        product.setPhotos(inspectPhotoAndSetDefault(product.getPhotos()));
+        AddProductDTO addProductDTO = new AddProductDTO(product);
+        return addProductDTO;
+    }
 
     private List<ProductShopDTO> sortByPriceProductShopDTO(List<ProductShopDTO> productShopDTOList) {
         ProductShopDTO a;
@@ -87,6 +93,37 @@ public class ProductService {
             }
         }
         return productShopDTOList;
+    }
+    public Product convertAddProductDTOToProduct(AddProductDTO addProductDTO) {
+     Product product = new Product();
+     product.setName(addProductDTO.getProductName());
+     product.setDescription(addProductDTO.getProductDescription());
+     product.setProductType(productTypeDAO.findByID(addProductDTO.getProductTypeId()).get());
+     List<String> photos = new ArrayList<>();
+     if(!addProductDTO.getProductPhotoUrl1().isEmpty()) {
+         photos.add(addProductDTO.getProductPhotoUrl1());
+     }
+     if (!addProductDTO.getProductPhotoUrl2().isEmpty()) {
+         photos.add(addProductDTO.getProductPhotoUrl2());
+     }
+     if (!addProductDTO.getProductPhotoUrl3().isEmpty()) {
+         photos.add(addProductDTO.getProductPhotoUrl3());
+     }
+     if (!addProductDTO.getProductPhotoUrl4().isEmpty()) {
+         photos.add(addProductDTO.getProductPhotoUrl4());
+     }
+     if (!addProductDTO.getProductPhotoUrl5().isEmpty()) {
+         photos.add(addProductDTO.getProductPhotoUrl5());
+     }
+     product.setPhotos(photos);
+        return product;
+    }
+
+    public ProductType convertAddProductDTOToProductType(AddProductDTO addProductDTO) {
+        ProductType productType = new ProductType();
+        productType.setTypeName(addProductDTO.getProductTypeName());
+        productType.setPhoto(addProductDTO.getProductTypePhotoUrl());
+        return productType;
     }
 
     private List<String> inspectPhotoAndSetDefault(List<String> photos) {
