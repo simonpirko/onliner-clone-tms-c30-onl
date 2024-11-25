@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/catalog")
 public class ProductController {
     private ProductService productService;
     // удалить после создания Регистрации профиля!!!
