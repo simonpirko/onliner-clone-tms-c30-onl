@@ -9,5 +9,6 @@ import lombok.*;
 @ToString
 public class CartItem {
     private Product product;
-    private Shop shop;
+    private ShopProduct shopProduct;
+    private String nameShop;
 }
