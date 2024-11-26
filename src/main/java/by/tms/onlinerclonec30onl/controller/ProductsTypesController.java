@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 import static by.tms.onlinerclonec30onl.Constants.PRODUCT_TYPES_CONTROLLER;
 
 @Controller
@@ -26,15 +28,30 @@ public class ProductsTypesController {
     }
 
     @GetMapping("/create")
-    public String add(Model model) {
+    public String create(Model model) {
         model.addAttribute("productType", new ProductType());
         return "/productstypes/create";
     }
 
     @PostMapping("/create")
-    public String add(@ModelAttribute("productType") ProductType productType) {
+    public String create(@ModelAttribute("productType") ProductType productType) {
         productTypeDAO.save(productType);
         return "redirect:" + PRODUCT_TYPES_CONTROLLER;
     }
 
+    @GetMapping("/{id}/update")
+    public String update(@PathVariable("id") long id, Model model) {
+        Optional<ProductType> productType = productTypeDAO.findByID(id);
+        if (productType.isPresent()) {
+            model.addAttribute("productType", new ProductType());
+            return "/productstypes/update"; // todo везде использовать PRODUCT_TYPES_CONTROLLER вместо /productstypes
+        }
+        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("productType") ProductType productType) {
+        productTypeDAO.update(productType);
+        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
+    }
 }
