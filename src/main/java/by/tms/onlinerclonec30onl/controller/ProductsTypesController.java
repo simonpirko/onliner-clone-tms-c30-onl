@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-import static by.tms.onlinerclonec30onl.Constants.PRODUCT_TYPES_CONTROLLER;
+import static by.tms.onlinerclonec30onl.Constants.*;
 
 @Controller
-@RequestMapping(PRODUCT_TYPES_CONTROLLER)
+@RequestMapping(PRODUCT_TYPES_CONTEXT)
 public class ProductsTypesController {
     private final ProductTypeDAO productTypeDAO;
 
@@ -24,34 +24,34 @@ public class ProductsTypesController {
     @GetMapping
     public String showAll(Model model) {
         model.addAttribute("productsTypes", productTypeDAO.findAll());
-        return "/productstypes/show";
+        return PRODUCT_TYPES_FOLDER + SHOW_PAGE;
     }
 
-    @GetMapping("/create")
+    @GetMapping(CREATE_CONTEXT)
     public String create(Model model) {
         model.addAttribute("productType", new ProductType());
-        return "/productstypes/create";
+        return PRODUCT_TYPES_FOLDER + CREATE_PAGE;
     }
 
-    @PostMapping("/create")
+    @PostMapping(CREATE_CONTEXT)
     public String create(@ModelAttribute("productType") ProductType productType) {
         productTypeDAO.save(productType);
-        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
+        return "redirect:" + PRODUCT_TYPES_CONTEXT;
     }
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/{id}" + UPDATE_CONTEXT)
     public String update(@PathVariable("id") long id, Model model) {
         Optional<ProductType> productType = productTypeDAO.findByID(id);
         if (productType.isPresent()) {
-            model.addAttribute("productType", new ProductType());
-            return "/productstypes/update"; // todo везде использовать PRODUCT_TYPES_CONTROLLER вместо /productstypes
+            model.addAttribute("productType", productType.get());
+            return PRODUCT_TYPES_FOLDER + UPDATE_PAGE;
         }
-        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
+        return "redirect:" + PRODUCT_TYPES_CONTEXT;
     }
 
-    @PostMapping("/update")
+    @PostMapping(UPDATE_CONTEXT)
     public String update(@ModelAttribute("productType") ProductType productType) {
         productTypeDAO.update(productType);
-        return "redirect:" + PRODUCT_TYPES_CONTROLLER;
+        return "redirect:" + PRODUCT_TYPES_CONTEXT;
     }
 }

@@ -10,7 +10,7 @@
 <h5>Ввод нового типа продукта</h5>
 <hr>
 
-<form th:method="POST" th:action="@{/productstypes/create}">
+<form th:method="POST" th:action="@{/productstypes/admin/create}">
     <label for="typeName">Тип продукта:</label>
     <input type="text" th:field="${productType.typeName}" id="typeName"/>
     <br/>
