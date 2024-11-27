@@ -14,6 +14,5 @@ import java.util.List;
 @ToString
 public class ProductDTO {
     private Product product;
-    private ProductShopDTO chooseShop;
     List<ProductShopDTO> productShopDTOList;
 }

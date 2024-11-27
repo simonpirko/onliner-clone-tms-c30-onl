@@ -55,6 +55,10 @@ public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop_product WHERE id=?",rowMapper,id));
     }
 
+    public Optional<ShopProduct> findByIdProductAndIdShop(long idProduct, long idShop) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop_product WHERE id_shop=? and id_product=?",rowMapper,idShop,idProduct));
+    }
+
     public Optional<Double> findMinPriceByID(long id) {
        try {
            return Optional.of(jdbcTemplate.queryForObject("SELECT min(price) FROM shop_product WHERE id_product = ?", Double.class, id));

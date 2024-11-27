@@ -69,7 +69,7 @@ public class ProductService {
             productShopDTOList.add(productShopDTO);
         }
         productDTO.getProduct().setPhotos(inspectPhotoAndSetDefault(productDTO.getProduct().getPhotos()));
-        productDTO.setChooseShop(defaultBestPrice(productShopDTOList));
+
         productDTO.setProductShopDTOList(sortByPriceProductShopDTO(productShopDTOList));
 
 
@@ -149,7 +149,5 @@ public class ProductService {
         return productTypeDAO.findAll();
     }
 
-    private ProductShopDTO defaultBestPrice(List<ProductShopDTO> productShopDTOList) {
-        return productShopDTOList.get(0);
-    }
+
 }
