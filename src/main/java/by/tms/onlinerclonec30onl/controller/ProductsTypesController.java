@@ -54,4 +54,10 @@ public class ProductsTypesController {
         productTypeDAO.update(productType);
         return "redirect:" + PRODUCT_TYPES_CONTEXT;
     }
+
+    @GetMapping("/{id}" + DELETE_CONTEXT)
+    public String delete(@PathVariable("id") long id) {
+        productTypeDAO.deleteById(id);
+        return "redirect:" + PRODUCT_TYPES_CONTEXT;
+    }
 }

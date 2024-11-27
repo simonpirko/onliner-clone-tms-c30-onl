@@ -6,6 +6,7 @@ public interface Constants {
     String PRODUCT_TYPES_CONTEXT = "/productstypes";
     String UPDATE_CONTEXT = "/admin/update";
     String CREATE_CONTEXT = "/admin/create";
+    String DELETE_CONTEXT = "/admin/delete";
     String PRODUCT_TYPES_FOLDER = "/productstypes/";
     String SHOW_PAGE = "show";
     String UPDATE_PAGE = "update";
