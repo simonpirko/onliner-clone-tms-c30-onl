@@ -43,4 +43,12 @@ public class ProductController {
         model.addAttribute("products", products);
         return "product_type";
     }
+
+    @PostMapping("/product/search")
+    public String search(@RequestParam("search") String search, Model model) {
+        List<ProductFromTypeDto> products = productService.searchProductsFromTypeDto(search);
+        model.addAttribute("products", products);
+        return "searchProduct";
+    }
+
 }

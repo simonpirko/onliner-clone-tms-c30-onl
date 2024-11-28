@@ -51,4 +51,8 @@ public class ProductDAO implements DataAccessObject<Product> {
     public List<Product> findAllByIdProductType(Long id) {
         return jdbcTemplate.query("SELECT * FROM product WHERE id_product_type = ?", rowMapper, id);
     }
+
+    public List<Product> findAllByName(String name) {
+        return jdbcTemplate.query("SELECT * FROM product WHERE name ILIKE ?", rowMapper, "%" + name + "%");
+    }
 }
