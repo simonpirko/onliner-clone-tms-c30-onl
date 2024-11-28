@@ -4,7 +4,6 @@ package by.tms.onlinerclonec30onl.dao;
 import by.tms.onlinerclonec30onl.domain.Customer;
 import by.tms.onlinerclonec30onl.mappers.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class CustomerDAO implements InterfaceDAO<Customer> {
+public class CustomerDAO implements DataAccessObject<Customer> {
     private final JdbcTemplate jdbcTemplate;
     private final CustomerMapper rowMapper;
 

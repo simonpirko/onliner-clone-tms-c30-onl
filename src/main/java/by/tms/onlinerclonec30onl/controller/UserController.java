@@ -58,6 +58,11 @@ public class UserController {
         productTypeDAO.save(productService.convertAddProductDTOToProductType(addProductDTO));
         return "redirect:/user/admin/add-product";
     }
+    @GetMapping("/admin/edit-product")
+    public String editProduct(Model model) {
+        model.addAttribute("productTypes",productTypeDAO.findAll());
+        return "editProduct";
+    }
     @GetMapping ("/test")
     public String test() {
         return "test";

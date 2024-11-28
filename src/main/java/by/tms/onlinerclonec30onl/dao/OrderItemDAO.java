@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class OrderItemDAO implements InterfaceDAO<OrderItem> {
+public class OrderItemDAO implements DataAccessObject<OrderItem> {
 
     private final JdbcTemplate jdbcTemplate;
     private final OrderIteemMapper rowMapper;

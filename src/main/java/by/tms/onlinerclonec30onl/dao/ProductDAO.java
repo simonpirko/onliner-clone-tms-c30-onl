@@ -4,14 +4,13 @@ import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.mappers.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductDAO implements InterfaceDAO<Product> {
+public class ProductDAO implements DataAccessObject<Product> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

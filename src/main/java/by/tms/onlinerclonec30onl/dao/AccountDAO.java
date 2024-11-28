@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class AccountDAO implements InterfaceDAO<Account> {
+public class AccountDAO implements DataAccessObject<Account> {
     private final JdbcTemplate jdbcTemplate;
     private final AccountMapper rowMapper;
 

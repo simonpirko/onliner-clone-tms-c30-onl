@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class ShopDAO implements InterfaceDAO<Shop> {
+public class ShopDAO implements DataAccessObject<Shop> {
     private final JdbcTemplate jdbcTemplate;
     private final ShopMapper rowMapper;
     @Autowired
