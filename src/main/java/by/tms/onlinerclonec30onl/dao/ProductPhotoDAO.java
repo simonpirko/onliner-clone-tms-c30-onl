@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 @Component
-public class ProductPhotoDAO implements InterfaceDAO<ProductPhoto> {
+public class ProductPhotoDAO implements DataAccessObject<ProductPhoto> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class ProductTypeDAO /*implements InterfaceDAO<ProductType>*/ {
+public class ProductTypeDAO {
     private final JdbcTemplate jdbcTemplate;
     private final ProductTypeMapper rowMapper;
 

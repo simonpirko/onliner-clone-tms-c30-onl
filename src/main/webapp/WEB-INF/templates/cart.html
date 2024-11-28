@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+<div th:insert="menubar.html"></div>
+<div class="row">
+    <div class="card" th:each="cartItem : ${session.cart.getProducts}" style="width: 18rem;">
+        <div th:if="${cartItem.getProduct().getPhotos().size()} > 0">
+            <img th:src="${cartItem.getProduct().getPhotos().get(0)}" width="150" height="150" class="w-100" alt="...">
+        </div>
+        <div th:if="${cartItem.getProduct().getPhotos().size()} == 0">
+            <img src="https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg" width="150"
+                 height="150" class=" w-100" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" th:text="${cartItem.getProduct().getName()}"></h5>
+
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:text="'цена: ' + ${cartItem.getShopProduct().getPrice() + ' byn'}"></li>
+            <li class="list-group-item" th:text="'магазин: ' + ${cartItem.getNameShop()}"></li>
+            <li class="list-group-item" th:text="'доставка: ' + ${cartItem.getShopProduct().getDelivery()}"></li>
+        </ul>
+        <div class="card-body">
+            <a th:href="${'/catalog/product/'+ cartItem.getProduct().getId()}" class="card-link">посмотреть товар</a>
+
+        </div>
+        <form action="/order" method="post">
+            <input type="hidden" th:value="${cartItem.getProduct().getId()}" name="idProduct"/>
+            <input type="hidden" th:value="${cartItem.getShopProduct().getShop().getId()}" name="idShop"/>
+            <input type="hidden" th:value="${session.cart.getAccount().getId()}" name="idAccount"/>
+            <button type="submit" class="btn btn-outline-success">Оформить</button>
+        </form>
+        <form action="/cart/delete" method="post">
+            <input type="hidden" th:value="*{cartItem.getShopProduct().getId()}" name="idItem"/>
+            <button type="submit" class="btn btn-outline-danger">Удалить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

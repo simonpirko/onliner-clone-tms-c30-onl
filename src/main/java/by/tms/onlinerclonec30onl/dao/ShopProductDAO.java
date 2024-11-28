@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Component
-public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
+public class ShopProductDAO implements DataAccessObject<ShopProduct> {
     private final JdbcTemplate jdbcTemplate;
     private final ShopProductMapper rowMapper;
 
@@ -53,6 +53,10 @@ public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
 
     public Optional<ShopProduct> findByID(long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop_product WHERE id=?",rowMapper,id));
+    }
+
+    public Optional<ShopProduct> findByIdProductAndIdShop(long idProduct, long idShop) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM shop_product WHERE id_shop=? and id_product=?",rowMapper,idShop,idProduct));
     }
 
     public Optional<Double> findMinPriceByID(long id) {
