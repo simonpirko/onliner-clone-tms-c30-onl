@@ -16,7 +16,7 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li th:each="type : ${allTypes}">
-                            <a class="dropdown-item" th:href="@{/product(id=${type.id})}" th:text="${type.typeName}"></a>
+                            <a class="dropdown-item" th:href="@{/catalog/product(id=${type.id})}" th:text="${type.typeName}"></a>
                         </li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${product.name}"></h5>
                         <p class="card-text" th:text="${product.price != null} ? ('Цена от: ' + ${product.price}) : 'Нет в продаже'"></p>
-                        <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary">Подробнее</a>
+                        <a th:href="@{/catalog/product/{id}(id=${product.id})}" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>
             </div>
