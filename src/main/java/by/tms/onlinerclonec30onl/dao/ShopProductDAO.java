@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Component
-public class ShopProductDAO implements InterfaceDAO<ShopProduct> {
+public class ShopProductDAO implements DataAccessObject<ShopProduct> {
     private final JdbcTemplate jdbcTemplate;
     private final ShopProductMapper rowMapper;
 

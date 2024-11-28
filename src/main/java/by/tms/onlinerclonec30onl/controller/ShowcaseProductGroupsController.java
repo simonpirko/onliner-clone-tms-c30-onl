@@ -37,7 +37,7 @@ public class ShowcaseProductGroupsController {
 //
 //        ProductType productTypeUpdate = new ProductType("Коляски", "koliaski");
 //        productTypeDao.update(productTypeUpdate, 7);
-//
+// 
 //        productTypeDao.delete(11);
 
 
