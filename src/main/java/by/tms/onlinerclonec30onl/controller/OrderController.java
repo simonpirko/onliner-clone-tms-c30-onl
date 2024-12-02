@@ -1,17 +1,18 @@
 package by.tms.onlinerclonec30onl.controller;
 
+import by.tms.onlinerclonec30onl.domain.Cart;
+import by.tms.onlinerclonec30onl.domain.Customer;
 import by.tms.onlinerclonec30onl.dto.OrderDto;
 import by.tms.onlinerclonec30onl.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/order")
@@ -24,10 +25,24 @@ public class OrderController {
     public String addOrder(@RequestParam("idProduct") long idProduct,
                            @RequestParam("idShop") long idShop,
                            @RequestParam("idAccount") long idAccount,
-                           Model model, HttpSession session) {
-        //параметры товара переданного для оформления и id пользователя осуществившего заказ
-        OrderDto orders = orderService.getOrders(idProduct, idShop, idAccount);
+                           Model model) {
+        OrderDto orders = orderService.getOrders(idAccount, idShop, idProduct);
         model.addAttribute("order", orders);
         return "order";
+    }
+
+    @PostMapping
+    public String addOrder(OrderDto orderDto, Model model, HttpSession session) {
+
+        orderService.save(orderDto);
+
+        Cart cart = (Cart) session.getAttribute("cart");
+        for(int i = 0; i < cart.getProducts().size(); i++){
+            if(Objects.equals(cart.getProducts().get(i).getShopProduct().getId(), orderDto.getShopProductId())){
+                cart.getProducts().remove(i);
+            }
+        }
+        session.setAttribute("cart", cart);
+        return "redirect:/cart";
     }
 }

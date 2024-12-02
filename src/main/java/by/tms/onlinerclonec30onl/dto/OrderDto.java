@@ -11,11 +11,15 @@ import lombok.*;
 @ToString
 public class OrderDto {
 
-    private Customer customer;
+    private Long customerId;
+    private Long shopProductId;
     private Double totalPrice;
     private String firstName;
     private String lastName;
+    private String shopName;
+    private String productName;
+    private String shopDelivery;
     private String phone;
     private String deliveryAddress;
-    private ShopProduct shopProduct;
+    private String photo;
 }
