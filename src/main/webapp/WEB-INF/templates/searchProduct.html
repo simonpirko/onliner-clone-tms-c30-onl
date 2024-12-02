@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<div th:insert="menubar.html"></div>
+    <div class="container">
+        <div class="row">
+            <form th:action="@{/catalog/product/search}" method="post" style="padding-top: 20px; padding-bottom: 20px">
+                <input style="width: 80%" type="text" name="search" placeholder="Search Product">
+                <button style="width: 10%" type="submit">Search</button>
+            </form>
+            <div th:each="product : ${products}" class="card col-3" style="padding-top: 10px">
+                <img class="card-img-top" style="max-width:100%; height:200px; object-fit: cover;"
+                     th:src="${#lists.size(product.photos) > 0} ? (${product.photos[0]})
+                     : 'https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg'">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.name}"></h5>
+                    <p class="card-text" th:text="${product.price != null} ? ('Цена от: ' + ${product.price}) : 'Нет в продаже'"></p>
+                    <a th:href="@{/catalog/product/{id}(id=${product.id})}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
