@@ -11,7 +11,7 @@
             <div class="row ">
 
                 <div class="col-md-5  p-md-4">
-                    <img th:src="${addProductDTO.getProductPhotoUrl1}" class="w-100" alt="...">
+                    <img th:src="${addProductDTO.getProductPhotoUrl1}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" alt="...">
                 </div>
                 <div class="col-md-5 p-2 ps-md-4">
                     <h5 class="mt-0">
@@ -24,16 +24,16 @@
                         <div class="container-sm">
                             <div class="row">
                                 <div class="col-md-2  p-md-1">
-                                    <img th:src="${addProductDTO.getProductPhotoUrl2}" class="w-100" height="80" alt="...">
+                                    <img th:src="${addProductDTO.getProductPhotoUrl2}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80" alt="...">
                                 </div>
                                 <div class="col-md-2  p-md-1">
-                                    <img th:src="${addProductDTO.getProductPhotoUrl3}" class="w-100" height="80" alt="...">
+                                    <img th:src="${addProductDTO.getProductPhotoUrl3}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80" alt="...">
                                 </div>
                                 <div class="col-md-2  p-md-1">
-                                    <img th:src="${addProductDTO.getProductPhotoUrl4}" class="w-100" height="80"alt="...">
+                                    <img th:src="${addProductDTO.getProductPhotoUrl4}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80"alt="...">
                                 </div>
                                 <div class="col-md-2  p-md-1">
-                                    <img th:src="${addProductDTO.getProductPhotoUrl5}" class="w-100" height="80" alt="...">
+                                    <img th:src="${addProductDTO.getProductPhotoUrl5}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80" alt="...">
                                 </div>
                                 <h6 class="mt-0">
                                     <small class="text-muted" th:text="${addProductDTO.getProductDescription}"></small>
@@ -51,9 +51,9 @@
                                                     <form action="/user/admin/add-product" method="post">
                                                         <h5 class="mt-0">
                                                             <div class="mb-3">
-                                                                <label for="productName" class="form-label">Name Product:</label>
+                                                                <label for="productName" class="form-label" >Name Product:</label>
                                                                 <input type="text" class="form-control" name="productName" id="productName"
-                                                                       placeholder="Наименование продукта">
+                                                                       placeholder="Наименование продукта" required>
                                                             </div>
 
                                                             <div class="mb-3">
@@ -63,7 +63,7 @@
                                                             </div>
                                                             <div class="input-group mb-3">
                                                                 <label class="input-group-text">Тип Продукта</label>
-                                                                <select class="form-select" id="inputGroupSelect01" name="productTypeId">
+                                                                <select class="form-select" id="inputGroupSelect01" name="productTypeId" required>
                                                                     <option selected>Выберите...</option>
                                                                     <option th:each="productType :${productTypes}" th:text="${productType.getTypeName}" th:value="${productType.getId}"></option>
                                                                 </select>
@@ -111,14 +111,14 @@
                                                             <div class="mb-3">
                                                                 <label for="productName" class="form-label">Name product type:</label>
                                                                 <input type="text" class="form-control" name="productTypeName" id="productType"
-                                                                       placeholder="Наименование типа товара">
+                                                                       placeholder="Наименование типа товара" required>
                                                             </div>
                                                         </h5>
                                                         <h5 class="mt-0">
                                                             <div class="mb-3">
                                                                 <label for="productName" class="form-label">Photo product type:</label>
                                                                 <input type="text" class="form-control" name="productTypePhotoUrl" id="productTypePhoto"
-                                                                       placeholder="URL address photo product type">
+                                                                       placeholder="URL address photo product type" required>
                                                             </div>
                                                         </h5>
                                                         <button type="submit" class="btn btn-primary"> Save </button>

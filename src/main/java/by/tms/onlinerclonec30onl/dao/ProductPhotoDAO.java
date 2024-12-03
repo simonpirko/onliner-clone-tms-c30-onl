@@ -28,7 +28,9 @@ public class ProductPhotoDAO implements DataAccessObject<ProductPhoto> {
     public void save(ProductPhoto entity) {
         jdbcTemplate.update("INSERT INTO product_photo VALUES (default,?,?)",entity.getProduct().getId(),entity.getPhoto());
     }
-
+public void save(List<ProductPhoto> entities,Long id) {
+        entities.forEach(photo -> {jdbcTemplate.update("INSERT INTO product_photo VALUES (default,?,?)",id,photo.getPhoto());});
+}
     @Override
     public void delete(ProductPhoto entity) {
         jdbcTemplate.update("DELETE FROM product_photo WHERE id=?",entity.getId());

@@ -1,10 +1,8 @@
 package by.tms.onlinerclonec30onl.service;
 
-import by.tms.onlinerclonec30onl.dao.ProductDAO;
-import by.tms.onlinerclonec30onl.dao.ProductTypeDAO;
-import by.tms.onlinerclonec30onl.dao.ShopDAO;
-import by.tms.onlinerclonec30onl.dao.ShopProductDAO;
+import by.tms.onlinerclonec30onl.dao.*;
 import by.tms.onlinerclonec30onl.domain.Product;
+import by.tms.onlinerclonec30onl.domain.ProductPhoto;
 import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.dto.AddProductDTO;
 import by.tms.onlinerclonec30onl.dto.ProductDTO;
@@ -13,6 +11,7 @@ import by.tms.onlinerclonec30onl.dto.ProductShopDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +25,9 @@ public class ProductService {
 
     @Autowired
     private ShopProductDAO shopProductDAO;
+
+    @Autowired
+    private ProductPhotoDAO productPhotoDAO;
 
     @Autowired
     private ProductTypeDAO productTypeDAO;
@@ -75,9 +77,19 @@ public class ProductService {
 
         return productDTO;
     }
-    public AddProductDTO getProductPageDataForAddProduct(Product product) {
-        product.setPhotos(inspectPhotoAndSetDefault(product.getPhotos()));
-        AddProductDTO addProductDTO = new AddProductDTO(product);
+    public AddProductDTO convertProductToAddProductDTO(Product product) {
+        //product.setPhotos(inspectPhotoAndSetDefault(product.getPhotos()));
+        AddProductDTO addProductDTO = new AddProductDTO();
+        addProductDTO.setProductName(product.getName());
+        addProductDTO.setProductDescription(product.getDescription());
+        if(product.getProductType() != null) {
+            addProductDTO.setProductTypeId(product.getProductType().getId());
+            addProductDTO.setProductTypeName(product.getProductType().getTypeName());}
+        if (product.getPhotos().size() > 0) addProductDTO.setProductPhotoUrl1(product.getPhotos().get(0));
+        if (product.getPhotos().size() > 1) addProductDTO.setProductPhotoUrl2(product.getPhotos().get(1));
+        if (product.getPhotos().size() > 2) addProductDTO.setProductPhotoUrl3(product.getPhotos().get(2));
+        if (product.getPhotos().size() > 3) addProductDTO.setProductPhotoUrl4(product.getPhotos().get(3));
+        if (product.getPhotos().size() > 4) addProductDTO.setProductPhotoUrl5(product.getPhotos().get(4));
         return addProductDTO;
     }
 
@@ -100,19 +112,19 @@ public class ProductService {
      product.setDescription(addProductDTO.getProductDescription());
      product.setProductType(productTypeDAO.findByID(addProductDTO.getProductTypeId()).get());
      List<String> photos = new ArrayList<>();
-     if(!addProductDTO.getProductPhotoUrl1().isEmpty()) {
+     if(!addProductDTO.getProductPhotoUrl1().isEmpty() && addProductDTO.getProductPhotoUrl1() != null) {
          photos.add(addProductDTO.getProductPhotoUrl1());
      }
-     if (!addProductDTO.getProductPhotoUrl2().isEmpty()) {
+     if (!addProductDTO.getProductPhotoUrl2().isEmpty() && addProductDTO.getProductPhotoUrl1() != null) {
          photos.add(addProductDTO.getProductPhotoUrl2());
      }
-     if (!addProductDTO.getProductPhotoUrl3().isEmpty()) {
+     if (!addProductDTO.getProductPhotoUrl3().isEmpty() && addProductDTO.getProductPhotoUrl1() != null) {
          photos.add(addProductDTO.getProductPhotoUrl3());
      }
-     if (!addProductDTO.getProductPhotoUrl4().isEmpty()) {
+     if (!addProductDTO.getProductPhotoUrl4().isEmpty() && addProductDTO.getProductPhotoUrl1() != null) {
          photos.add(addProductDTO.getProductPhotoUrl4());
      }
-     if (!addProductDTO.getProductPhotoUrl5().isEmpty()) {
+     if (!addProductDTO.getProductPhotoUrl5().isEmpty() && addProductDTO.getProductPhotoUrl1() != null) {
          photos.add(addProductDTO.getProductPhotoUrl5());
      }
      product.setPhotos(photos);
@@ -124,6 +136,29 @@ public class ProductService {
         productType.setTypeName(addProductDTO.getProductTypeName());
         productType.setPhoto(addProductDTO.getProductTypePhotoUrl());
         return productType;
+    }
+    public Product updateProductByAddProductDTO(Product product, AddProductDTO addProductDTO) {
+        product.setName(addProductDTO.getProductName());
+        product.setDescription(addProductDTO.getProductDescription());
+        product.setProductType(productTypeDAO.findByID(addProductDTO.getProductTypeId()).get());
+        List<String> photos = new ArrayList<>();
+        if(!addProductDTO.getProductPhotoUrl1().isEmpty() && addProductDTO.getProductPhotoUrl1() != null) {
+            photos.add(addProductDTO.getProductPhotoUrl1());
+        }
+        if (!addProductDTO.getProductPhotoUrl2().isEmpty() && addProductDTO.getProductPhotoUrl2() != null) {
+            photos.add(addProductDTO.getProductPhotoUrl2());
+        }
+        if (!addProductDTO.getProductPhotoUrl3().isEmpty() && addProductDTO.getProductPhotoUrl3() != null) {
+            photos.add(addProductDTO.getProductPhotoUrl3());
+        }
+        if (!addProductDTO.getProductPhotoUrl4().isEmpty() && addProductDTO.getProductPhotoUrl4() != null) {
+            photos.add(addProductDTO.getProductPhotoUrl4());
+        }
+        if (!addProductDTO.getProductPhotoUrl5().isEmpty() && addProductDTO.getProductPhotoUrl5() != null) {
+            photos.add(addProductDTO.getProductPhotoUrl5());
+        }
+        product.setPhotos(photos);
+        return product;
     }
 
     private List<String> inspectPhotoAndSetDefault(List<String> photos) {
@@ -140,7 +175,16 @@ public class ProductService {
         }
         return photos;
     }
-
+    //Костыль номер 1...
+    public List<ProductPhoto> savePhoto(Product product) {
+        List<ProductPhoto> photos = new ArrayList<>();
+        product.getPhotos().stream().forEach(photo -> {
+            ProductPhoto photoForSave = new ProductPhoto();
+            photoForSave.setPhoto(photo);
+            photos.add(photoForSave);
+        });
+        return photos;
+    }
     public Optional<ProductType> getProductTypeById(Long typeId) {
         return productTypeDAO.findByID(typeId);
     }

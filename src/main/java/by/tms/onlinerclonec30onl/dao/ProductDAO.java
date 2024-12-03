@@ -2,10 +2,16 @@ package by.tms.onlinerclonec30onl.dao;
 
 import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.mappers.ProductMapper;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,13 +20,25 @@ public class ProductDAO implements DataAccessObject<Product> {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    @Autowired
+    private DataSource dataSource;
     @Autowired
     private ProductMapper rowMapper;
 
     @Override
     public void save(Product entity) {
-        jdbcTemplate.update("INSERT INTO product VALUES (default,?,?,?)",entity.getProductType().getId(),entity.getName(),entity.getDescription());
+      jdbcTemplate.update("INSERT INTO product VALUES (default,?,?,?)",entity.getProductType().getId(),entity.getName(),entity.getDescription());
+    }
+    @SneakyThrows
+    public Long saveAndReturnID(Product entity) {
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO product VALUES (default,?,?,?) RETURNING id");
+        preparedStatement.setLong(1, entity.getProductType().getId());
+        preparedStatement.setString(2, entity.getName());
+        preparedStatement.setString(3, entity.getDescription());
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getLong("id");
     }
 
     @Override
