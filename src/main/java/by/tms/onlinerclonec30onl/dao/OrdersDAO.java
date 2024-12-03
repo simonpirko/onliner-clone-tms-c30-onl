@@ -72,5 +72,17 @@ public class OrdersDAO implements DataAccessObject<Orders> {
     public Optional<Orders> findByID(long id) {
         return Optional.ofNullable( jdbcTemplate.queryForObject("SELECT * FROM orders WHERE id=?",rowMapper, id));
     }
+
+    public List<Orders> findAllByCustomerId(long customerId) {
+        return jdbcTemplate.query("SELECT * FROM orders WHERE id_customer=?",rowMapper,customerId);
+    }
+
+    public List<Orders> findAllOpenByCustomerId(long customerId) {
+        return jdbcTemplate.query("SELECT * FROM orders WHERE id_customer=? AND status='OPEN'",rowMapper,customerId);
+    }
+
+    public List<Orders> findAllCloseByCustomerId(long customerId) {
+        return jdbcTemplate.query("SELECT * FROM orders WHERE id_customer=? AND status='CLOSED'",rowMapper,customerId);
+    }
     
 }

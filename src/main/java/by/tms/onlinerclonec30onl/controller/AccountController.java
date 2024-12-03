@@ -1,11 +1,14 @@
 package by.tms.onlinerclonec30onl.controller;
 
+import by.tms.onlinerclonec30onl.dao.AccountDAO;
 import by.tms.onlinerclonec30onl.dao.CustomerDAO;
+import by.tms.onlinerclonec30onl.domain.Account;
 import by.tms.onlinerclonec30onl.dto.CustomerDto;
 import by.tms.onlinerclonec30onl.dto.UserRegistrationDto;
 import by.tms.onlinerclonec30onl.service.AccountService;
 import by.tms.onlinerclonec30onl.service.CustomerService;
 import by.tms.onlinerclonec30onl.domain.Customer;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,8 @@ public class AccountController {
     private CustomerService customerService;
     @Autowired
     private CustomerDAO customerDAO;
+    @Autowired
+    private AccountDAO accountDAO;
 
     @GetMapping("/reg")
     public String registration(@ModelAttribute("userRegistrationDto") UserRegistrationDto accountDto) {
@@ -42,35 +47,42 @@ public class AccountController {
         return "registration";
     }
 
-    @GetMapping("/profile/{id}")
-    public String index(@PathVariable(value = "id") Long customerId, Model model) {
-        CustomerDto customerDto=customerService.getCustomer(customerId);
+    @GetMapping("/profile")
+    public String index(HttpSession session, Model model) {
+        Account account = (Account) session.getAttribute("currentUser");
+        CustomerDto customerDto=customerService.getCustomer(account.getId());
 
         model.addAttribute("lastname",customerDto.getLastName());
         model.addAttribute("firstname",customerDto.getFirstName());
         model.addAttribute("phone",customerDto.getPhone());
         model.addAttribute("address",customerDto.getAddress());
+        model.addAttribute("role",account.getRole());
 
         return "accountProfile";
     }
 
 
-    @PostMapping("/profile/{id}")
-    public String registration(@PathVariable(value = "id") Long customerId,
-                               @RequestBody String newLastName,
-                               @RequestBody String newFirstName,
-                               @RequestBody String newPhone,
-                               @RequestBody String newAddress){
+    @PostMapping("/profile")
+    public String registration(@RequestParam("lastname") String newLastName,
+                               @RequestParam("name") String newFirstName,
+                               @RequestParam("phone") String newPhone,
+                               @RequestParam("address") String newAddress,
+                               @RequestParam("role") String role,
+                               HttpSession session) {
 
-        Customer customer=customerDAO.findByID(customerId).get();
+        Account account = (Account) session.getAttribute("currentUser");
+        Customer customer=customerDAO.findByID(account.getId()).get();
 
         customer.setLastName(newLastName);
         customer.setFirstName(newFirstName);
         customer.setPhone(newPhone);
         customer.setAddress(newAddress);
 
-        customerDAO.update(customerId, customer);
-        return "accountProfile";
+        customerDAO.update(account.getId(), customer);
+
+        account.setRole(Account.Role.valueOf(role));
+        accountDAO.update(account.getId(), account);
+        return "redirect:/user/profile";
     }
 
 }

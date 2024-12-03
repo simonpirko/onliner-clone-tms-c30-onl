@@ -12,7 +12,7 @@ import by.tms.onlinerclonec30onl.dto.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,5 +74,45 @@ public class OrderService {
         orderItem.setQuantity(1);
         orderItem.setPrice(orderDto.getTotalPrice());
         orderItemDAO.save(orderItem);
+    }
+
+    private List<OrderDto> mapperHistoryDto(List<Orders> orders) {
+        List<OrderDto> orderHistoryDtos = new ArrayList<>();
+        for (Orders order : orders) {
+            OrderDto orderHistoryDto = new OrderDto();
+            orderHistoryDto.setCustomerId(order.getCustomer().getId());
+            orderHistoryDto.setFirstName(order.getFirstName());
+            orderHistoryDto.setLastName(order.getLastName());
+            orderHistoryDto.setPhone(order.getPhone());
+            orderHistoryDto.setDeliveryAddress(order.getDeliveryAddress());
+            orderHistoryDto.setTotalPrice(order.getTotalPrice());
+            List<OrderItem> orderItems = orderItemDAO.findAllByOrderId(order.getId());
+            orderHistoryDto.setShopProductId(orderItems.get(0).getShopProduct().getId());
+            orderHistoryDto.setShopName(orderItems.get(0).getShopProduct().getShop().getName());
+            orderHistoryDto.setProductName(orderItems.get(0).getShopProduct().getProduct().getName());
+            orderHistoryDto.setShopDelivery(orderItems.get(0).getShopProduct().getDelivery());
+            if (!orderItems.get(0).getShopProduct().getProduct().getPhotos().isEmpty()) {
+                orderHistoryDto.setPhoto(orderItems.get(0).getShopProduct().getProduct().getPhotos().get(0));
+            } else {
+                orderHistoryDto.setPhoto("https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg");
+            }
+            orderHistoryDtos.add(orderHistoryDto);
+        }
+        return orderHistoryDtos;
+    }
+
+    public List<OrderDto> getAllUserOrders(Long userId) {
+        List<Orders> orders = ordersDAO.findAllByCustomerId(userId);
+        return mapperHistoryDto(orders);
+    }
+
+    public List<OrderDto> getAllOpenUserOrders(Long userId) {
+        List<Orders> orders = ordersDAO.findAllOpenByCustomerId(userId);
+        return mapperHistoryDto(orders);
+    }
+
+    public List<OrderDto> getAllCloseUserOrders(Long userId) {
+        List<Orders> orders = ordersDAO.findAllCloseByCustomerId(userId);
+        return mapperHistoryDto(orders);
     }
 }

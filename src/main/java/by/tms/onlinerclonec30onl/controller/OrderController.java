@@ -1,5 +1,6 @@
 package by.tms.onlinerclonec30onl.controller;
 
+import by.tms.onlinerclonec30onl.domain.Account;
 import by.tms.onlinerclonec30onl.domain.Cart;
 import by.tms.onlinerclonec30onl.domain.Customer;
 import by.tms.onlinerclonec30onl.dto.OrderDto;
@@ -44,5 +45,17 @@ public class OrderController {
         }
         session.setAttribute("cart", cart);
         return "redirect:/cart";
+    }
+
+    @GetMapping("/user-orders")
+    public String userOrders(Model model, HttpSession session) {
+        Account account = (Account) session.getAttribute("currentUser");
+        List<OrderDto> orderOpenDtos = orderService.getAllOpenUserOrders(account.getId());
+        System.out.println(orderOpenDtos);
+        List<OrderDto> orderCloseDtos = orderService.getAllCloseUserOrders(account.getId());
+        System.out.println(orderCloseDtos);
+        model.addAttribute("orderOpenDtos", orderOpenDtos);
+        model.addAttribute("orderCloseDtos", orderCloseDtos);
+        return "user-orders";
     }
 }

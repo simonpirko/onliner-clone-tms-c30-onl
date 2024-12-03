@@ -49,4 +49,8 @@ public class OrderItemDAO implements DataAccessObject<OrderItem> {
     public Optional<OrderItem> findByID(long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM order_item WHERE id=?",rowMapper,id));
     }
+
+    public List<OrderItem> findAllByOrderId(Long id) {
+        return jdbcTemplate.query("SELECT * FROM order_item WHERE id_orders = ?",rowMapper,id);
+    }
 }
