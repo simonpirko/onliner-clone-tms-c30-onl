@@ -17,9 +17,6 @@ import java.util.Optional;
 @RequestMapping("/catalog")
 public class ProductController {
     private ProductService productService;
-    // удалить после создания Регистрации профиля!!!
-    @Autowired
-    private AccountDAO accountDAO;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -28,8 +25,6 @@ public class ProductController {
     @GetMapping("/product/{idProduct}")
     public String index(@PathVariable(value = "idProduct") Long idProduct, Model model) {
         model.addAttribute("productDTO", productService.getProductPageData(idProduct));
-        // удалить после создания Регистрации профиля!!!
-        model.addAttribute("CurrentUser",accountDAO.findByID(1).get());
         return "product";
     }
 

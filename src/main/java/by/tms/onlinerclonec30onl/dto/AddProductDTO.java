@@ -25,17 +25,4 @@ public class AddProductDTO {
  private String productPhotoUrl3;
  private String productPhotoUrl4;
  private String productPhotoUrl5;
-
- public AddProductDTO(Product product) {
-  this.productName = product.getName();
-  this.productDescription = product.getDescription();
-  if(product.getProductType() != null) {
-   this.productTypeId = product.getProductType().getId();
-   this.productTypeName = product.getProductType().getTypeName();}
-   this.productPhotoUrl1 = product.getPhotos().get(0);
-   this.productPhotoUrl2 = product.getPhotos().get(1);
-   this.productPhotoUrl3 = product.getPhotos().get(2);
-   this.productPhotoUrl4 = product.getPhotos().get(3);
-   this.productPhotoUrl5 = product.getPhotos().get(4);
-  }
  }
