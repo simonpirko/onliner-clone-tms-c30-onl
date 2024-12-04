@@ -40,6 +40,12 @@ public class ProductService {
     public List<ProductFromTypeDto> getAllProductsFromTypeDto(Long typeId) {
         List<ProductFromTypeDto> productsFromTypeDto = new ArrayList<>();
         List<Product> products = productDAO.findAllByIdProductType(typeId);
+        productsFromTypeDto = mapperProductFromTypeDto(products);
+        return productsFromTypeDto;
+    }
+
+    public List<ProductFromTypeDto> mapperProductFromTypeDto(List<Product> products) {
+        List<ProductFromTypeDto> productsFromTypeDto = new ArrayList<>();
         for (Product product : products) {
             ProductFromTypeDto productFromTypeDto = new ProductFromTypeDto();
             productFromTypeDto.setId(product.getId());
@@ -50,6 +56,13 @@ public class ProductService {
             productFromTypeDto.setPhotos(product.getPhotos());
             productsFromTypeDto.add(productFromTypeDto);
         }
+        return productsFromTypeDto;
+    }
+
+    public List<ProductFromTypeDto> searchProductsFromTypeDto(String search) {
+        List<ProductFromTypeDto> productsFromTypeDto = new ArrayList<>();
+        List<Product> products = productDAO.findAllByName(search);
+        productsFromTypeDto = mapperProductFromTypeDto(products);
         return productsFromTypeDto;
     }
 
