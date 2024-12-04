@@ -13,6 +13,7 @@
         <li class="list-group-item" th:text="'Name: '+${firstname}"></li>
         <li class="list-group-item" th:text="'Phone number: '+${phone}"></li>
         <li class="list-group-item" th:text="'Address: '+${address}"></li>
+        <li class="list-group-item" th:text="'Role: '+${role}"></li>
     </ul>
 </div>
 <div class="container text-center col-3">
@@ -25,7 +26,7 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <form th:action="@{/user/profile/{id}(id=${id})}" method="post">
+                    <form th:action="@{/user/profile}" method="post">
                         <input type="hidden" name="id" class="form-control" id="exampleInputId" th:value="${id}">
                         <div class="mb-3">
                             <label for="exampleInputSurname" class="form-label">Enter your lastname</label>
@@ -43,6 +44,17 @@
                             <label for="exampleInputAddress" class="form-label">Enter your address</label>
                             <input type="text" name="address" class="form-control" id="exampleInputAddress" th:value="${address}">
                         </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputAddress" class="form-label">Change role</label>
+                            <label>
+                                <select id="role" name="role" th:value="${role}">
+                                    <option value="USER">USER</option>
+                                    <option value="BUSINESS">BUSINESS</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                </select>
+                            </label>
+                        </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
@@ -56,7 +68,7 @@
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <a href="/shop/registration">
+                    <a href="/shop/create">
                         <button type="submit" class="btn btn-primary"> Create shop </button>
                     </a>
                 </div>

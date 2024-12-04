@@ -28,7 +28,7 @@
             <a th:href="${'/catalog/product/'+ cartItem.getProduct().getId()}" class="card-link">посмотреть товар</a>
 
         </div>
-        <form action="/order" method="post">
+        <form action="/order" method="get">
             <input type="hidden" th:value="${cartItem.getProduct().getId()}" name="idProduct"/>
             <input type="hidden" th:value="${cartItem.getShopProduct().getShop().getId()}" name="idShop"/>
             <input type="hidden" th:value="${session.cart.getAccount().getId()}" name="idAccount"/>

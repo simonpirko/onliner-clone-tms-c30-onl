@@ -31,6 +31,9 @@
                     <a th:if="${session.currentUser != null}" class="nav-link" href="/user/profile">Profile</a>
                 </li>
                 <li class="nav-item">
+                    <a th:if="${session.currentUser != null}" class="nav-link" href="/order/user-orders">Orders</a>
+                </li>
+                <li class="nav-item">
                     <a th:if="${session.currentUser != null && session.currentUser.Role.name == 'ADMIN'}"
                     class="nav-link" href="/user/admin">Admin</a>
                 </li>
