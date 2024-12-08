@@ -84,5 +84,21 @@ public class OrdersDAO implements DataAccessObject<Orders> {
     public List<Orders> findAllCloseByCustomerId(long customerId) {
         return jdbcTemplate.query("SELECT * FROM orders WHERE id_customer=? AND status='CLOSED'",rowMapper,customerId);
     }
+
+    public List<Orders> findAllOpenByShopId(long shopId) {
+        return jdbcTemplate.query("SELECT orders.* FROM orders, order_item, shop_product WHERE shop_product.id_shop = ?" +
+                " AND orders.id=order_item.id_orders AND order_item.id_shop_product=shop_product.id AND status='OPEN'",
+                rowMapper, shopId);
+    }
+
+    public List<Orders> findAllCloseByShopId(long shopId) {
+        return jdbcTemplate.query("SELECT orders.* FROM orders, order_item, shop_product WHERE shop_product.id_shop = ?" +
+                        " AND orders.id=order_item.id_orders AND order_item.id_shop_product=shop_product.id" +
+                        " AND status='CLOSED'", rowMapper, shopId);
+    }
+
+    public void closeOrder(Long id) {
+        jdbcTemplate.update("UPDATE orders SET status='CLOSED' WHERE id=?",id);
+    }
     
 }

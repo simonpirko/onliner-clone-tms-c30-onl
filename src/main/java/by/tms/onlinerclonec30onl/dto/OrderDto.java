@@ -11,6 +11,7 @@ import lombok.*;
 @ToString
 public class OrderDto {
 
+    private Long orderId;
     private Long customerId;
     private Long shopProductId;
     private Double totalPrice;

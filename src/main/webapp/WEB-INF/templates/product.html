@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-9">
-        <span th:if="${CurrentUser==null}">
+        <span th:if="${session.currentUser==null}">
            <div class="alert alert-danger" role="alert">
             Для добавления товара в корзину пройдите регистрацию
         </div>
@@ -74,12 +74,12 @@
                                 <input type="hidden" th:value="*{productDTO.getProduct.getId}" name="idProduct"/>
                                 <input type="hidden" th:value="*{shop.getIdShop}" name="idShop"/>
                                 <!-- IF CUSTOMER IS ANONYMOUS -->
-                                <div th:if="${CurrentUser == null}">
+                                <div th:if="${session.currentUser == null}">
                                     <input type="hidden" th:value="-1" name="idAccount"/>
                                 </div>
                                 <!-- ELSE -->
-                                <div th:if="${CurrentUser != null}">
-                                    <input type="hidden" th:value="${CurrentUser.getId}" name="idAccount"/>
+                                <div th:if="${session.currentUser != null}">
+                                    <input type="hidden" th:value="${session.currentUser.getId}" name="idAccount"/>
                                 </div>
                                 <button type="submit" name="type" value="Sumbit" class="btn btn-outline-success">
                                     в корзину

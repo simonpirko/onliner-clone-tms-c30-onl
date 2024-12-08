@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shops</title>
+</head>
+<body>
+<div th:insert="menubar"></div>
+<div>
+    <a href="/shop/create">
+        <button type="submit" class="btn btn-primary">Create shop</button>
+    </a>
+</div>
+<div>
+    <h1>Shops</h1>
+</div>
+    <div th:each="shop : ${shops}">
+        <a th:href="@{/shop/profile/{id}(id=${shop.id})}" th:text="${shop.name}"></a>
+    </div>
+
+</body>
+</html>

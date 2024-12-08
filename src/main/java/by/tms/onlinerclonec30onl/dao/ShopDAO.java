@@ -1,5 +1,6 @@
 package by.tms.onlinerclonec30onl.dao;
 
+import by.tms.onlinerclonec30onl.domain.Account;
 import by.tms.onlinerclonec30onl.domain.Shop;
 import by.tms.onlinerclonec30onl.mappers.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,8 @@ public class ShopDAO implements DataAccessObject<Shop> {
     public Shop findByName(String name){
         return jdbcTemplate.query("SELECT * FROM shop WHERE name=?",new Object[]{name},rowMapper).stream().findFirst().orElse(new Shop());
     }
+
+    public List<Shop> findByAccount(Account account){
+        return jdbcTemplate.query("SELECT * FROM shop WHERE id_account=?", rowMapper, account.getId());
     }
+}

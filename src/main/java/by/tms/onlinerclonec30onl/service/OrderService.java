@@ -33,7 +33,7 @@ public class OrderService {
 
     public OrderDto getOrders(Long customerId, Long shopId, Long productId) {
         OrderDto orderDto = new OrderDto();
-        Optional<Customer> customer = customerDAO.findByID(customerId);
+        Optional<Customer> customer = customerDAO.findByIDAccount(customerId);
         if (customer.isPresent()) {
             orderDto.setCustomerId(customer.get().getId());
             orderDto.setFirstName(customer.get().getFirstName());
@@ -59,7 +59,7 @@ public class OrderService {
 
     public void save(OrderDto orderDto) {
         Orders orders = new Orders();
-        orders.setCustomer(customerDAO.findByID(orderDto.getCustomerId()).get());
+        orders.setCustomer(customerDAO.findByIDAccount(orderDto.getCustomerId()).get());
         orders.setTotalPrice(orderDto.getTotalPrice());
         orders.setFirstName(orderDto.getFirstName());
         orders.setLastName(orderDto.getLastName());
@@ -80,6 +80,7 @@ public class OrderService {
         List<OrderDto> orderHistoryDtos = new ArrayList<>();
         for (Orders order : orders) {
             OrderDto orderHistoryDto = new OrderDto();
+            orderHistoryDto.setOrderId(order.getId());
             orderHistoryDto.setCustomerId(order.getCustomer().getId());
             orderHistoryDto.setFirstName(order.getFirstName());
             orderHistoryDto.setLastName(order.getLastName());
@@ -114,5 +115,19 @@ public class OrderService {
     public List<OrderDto> getAllCloseUserOrders(Long userId) {
         List<Orders> orders = ordersDAO.findAllCloseByCustomerId(userId);
         return mapperHistoryDto(orders);
+    }
+
+    public List<OrderDto> getAllOpenShopOrders(Long shopId) {
+        List<Orders> orders = ordersDAO.findAllOpenByShopId(shopId);
+        return mapperHistoryDto(orders);
+    }
+
+    public List<OrderDto> getAllCloseShopOrders(Long shopId) {
+        List<Orders> orders = ordersDAO.findAllCloseByShopId(shopId);
+        return mapperHistoryDto(orders);
+    }
+
+    public void closeOrder(Long orderId) {
+        ordersDAO.closeOrder(orderId);
     }
 }

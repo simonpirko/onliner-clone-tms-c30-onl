@@ -85,4 +85,10 @@ public class AccountController {
         return "redirect:/user/profile";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/catalog";
+    }
+
 }

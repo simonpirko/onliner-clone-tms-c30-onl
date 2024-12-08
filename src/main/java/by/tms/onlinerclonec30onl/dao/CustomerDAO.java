@@ -50,4 +50,8 @@ jdbcTemplate.update("DELETE FROM customer WHERE id=?",id);
     public Optional<Customer> findByID(long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM customer WHERE id=?",rowMapper, id));
     }
+
+    public Optional<Customer> findByIDAccount(long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM customer WHERE id_account=?",rowMapper, id));
+    }
 }

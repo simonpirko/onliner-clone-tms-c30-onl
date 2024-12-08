@@ -73,4 +73,11 @@ public class ProductDAO implements DataAccessObject<Product> {
     public List<Product> findAllByName(String name) {
         return jdbcTemplate.query("SELECT * FROM product WHERE name ILIKE ?", rowMapper, "%" + name + "%");
     }
+
+    public List<Product> findAllByNotShop(Long shopId) {
+        return jdbcTemplate.query("SELECT DISTINCT product.* FROM product LEFT JOIN shop_product " +
+                "ON product.id=shop_product.id_product " +
+                "WHERE product.id NOT IN (SELECT shop_product.id_product FROM shop_product WHERE id_shop=?)",
+                rowMapper, shopId);
+    }
 }

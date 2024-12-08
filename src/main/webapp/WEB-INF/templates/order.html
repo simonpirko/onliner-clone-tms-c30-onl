@@ -55,6 +55,7 @@
 <div class="container">
     <h2>Оформление заказа</h2>
     <form th:object="${order}" th:action="@{/order}" method="post">
+        <input type="hidden" th:field="*{orderId}" />
         <input type="hidden" th:field="*{customerId}" name="customerId"/>
         <input type="hidden" th:field="*{shopProductId}" name="shopProductId"/>
         <input type="hidden" th:field="*{totalPrice}" name="totalPrice"/>
