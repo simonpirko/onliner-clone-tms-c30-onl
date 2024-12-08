@@ -80,6 +80,7 @@ public class OrderService {
         List<OrderDto> orderHistoryDtos = new ArrayList<>();
         for (Orders order : orders) {
             OrderDto orderHistoryDto = new OrderDto();
+            orderHistoryDto.setOrderId(order.getId());
             orderHistoryDto.setCustomerId(order.getCustomer().getId());
             orderHistoryDto.setFirstName(order.getFirstName());
             orderHistoryDto.setLastName(order.getLastName());
@@ -114,5 +115,19 @@ public class OrderService {
     public List<OrderDto> getAllCloseUserOrders(Long userId) {
         List<Orders> orders = ordersDAO.findAllCloseByCustomerId(userId);
         return mapperHistoryDto(orders);
+    }
+
+    public List<OrderDto> getAllOpenShopOrders(Long shopId) {
+        List<Orders> orders = ordersDAO.findAllOpenByShopId(shopId);
+        return mapperHistoryDto(orders);
+    }
+
+    public List<OrderDto> getAllCloseShopOrders(Long shopId) {
+        List<Orders> orders = ordersDAO.findAllCloseByShopId(shopId);
+        return mapperHistoryDto(orders);
+    }
+
+    public void closeOrder(Long orderId) {
+        ordersDAO.closeOrder(orderId);
     }
 }
