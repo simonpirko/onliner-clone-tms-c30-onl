@@ -51,11 +51,16 @@ public class OrderController {
     public String userOrders(Model model, HttpSession session) {
         Account account = (Account) session.getAttribute("currentUser");
         List<OrderDto> orderOpenDtos = orderService.getAllOpenUserOrders(account.getId());
-        System.out.println(orderOpenDtos);
         List<OrderDto> orderCloseDtos = orderService.getAllCloseUserOrders(account.getId());
-        System.out.println(orderCloseDtos);
         model.addAttribute("orderOpenDtos", orderOpenDtos);
         model.addAttribute("orderCloseDtos", orderCloseDtos);
         return "user-orders";
+    }
+
+    @GetMapping("/close")
+    public String closeOrder(@RequestParam("orderId") long orderId,
+                             @RequestParam("shopId") long shopId) {
+        orderService.closeOrder(orderId);
+        return "redirect:/shop/profile/" + shopId;
     }
 }

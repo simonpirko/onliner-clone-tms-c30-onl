@@ -52,11 +52,6 @@ public class AccountController {
     public String login() {
         return "login";
     }
-    @GetMapping("/logout")
-    public String logout(HttpSession httpSession) {
-        session.setAttribute("currentUser", null);
-        return "redirect:/catalog";
-    }
 
     @PostMapping("/login")
     public String login(@Valid UserLoginDTO accountDto,Model model) {
@@ -118,6 +113,7 @@ public class AccountController {
         accountDAO.update(account.getId(), account);
         return "redirect:/user/profile";
     }
+  
     @GetMapping("/admin/add-product")
     public String addProduct(Model model) {
         if (session.getAttribute("productForAdd") == null) {
@@ -183,6 +179,7 @@ public class AccountController {
         return "redirect:/user/admin/edit-product";
 
     }
+  
     @GetMapping("/admin/edit-product/update-product")
     public String updateProduct(Model model) {
         if (session.getAttribute("editProduct") == null) {
@@ -194,5 +191,11 @@ public class AccountController {
 
         session.setAttribute("editProduct", null);
         return "redirect:/user/admin/edit-product";
+    }
+  
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/catalog";
     }
 }

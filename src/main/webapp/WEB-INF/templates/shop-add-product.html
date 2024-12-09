@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product</title>
+</head>
+<body>
+<div th:insert="menubar.html"></div>
+<form action="/shop/add-product" method="post">
+    <input type="hidden" name="shopId" th:value="${shopId}">
+    <div class="input-group mb-3">
+        <label class="input-group-text">Продукт</label>
+        <select class="form-select" id="inputGroupSelect01" name="productId" required>
+            <option selected>Выберите...</option>
+            <option th:each="product :${products}" th:text="${product.name}" th:value="${product.id}"></option>
+        </select>
+    </div>
+    <input class="form-control" id="price" name="price" placeholder="price" required>
+    <input class="form-control" id="delivery" name="delivery" placeholder="delivery" required>
+    <button class="btn btn-primary" type="submit">Добавить</button>
+    <div class="text-center" style="color: red" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+</form>
+</body>
+</html>
