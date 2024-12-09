@@ -1,10 +1,12 @@
 package by.tms.onlinerclonec30onl.controller;
 
 import by.tms.onlinerclonec30onl.dao.AccountDAO;
+import by.tms.onlinerclonec30onl.domain.Account;
 import by.tms.onlinerclonec30onl.domain.Product;
 import by.tms.onlinerclonec30onl.domain.ProductType;
 import by.tms.onlinerclonec30onl.dto.ProductFromTypeDto;
 import by.tms.onlinerclonec30onl.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,8 @@ import java.util.Optional;
 @RequestMapping("/catalog")
 public class ProductController {
     private ProductService productService;
-
+@Autowired
+    HttpSession session;
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -25,6 +28,8 @@ public class ProductController {
     @GetMapping("/product/{idProduct}")
     public String index(@PathVariable(value = "idProduct") Long idProduct, Model model) {
         model.addAttribute("productDTO", productService.getProductPageData(idProduct));
+        Account currentUser = (Account) session.getAttribute("currentUser");
+        model.addAttribute("CurrentUser",currentUser);
         return "product";
     }
 

@@ -33,7 +33,7 @@ public class OrderService {
 
     public OrderDto getOrders(Long customerId, Long shopId, Long productId) {
         OrderDto orderDto = new OrderDto();
-        Optional<Customer> customer = customerDAO.findByID(customerId);
+        Optional<Customer> customer = customerDAO.findByIDAccount(customerId);
         if (customer.isPresent()) {
             orderDto.setCustomerId(customer.get().getId());
             orderDto.setFirstName(customer.get().getFirstName());
