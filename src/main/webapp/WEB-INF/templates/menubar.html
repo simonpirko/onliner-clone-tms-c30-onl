@@ -33,9 +33,25 @@
                 <li class="nav-item">
                     <a th:if="${session.currentUser != null}" class="nav-link" href="/order/user-orders">Orders</a>
                 </li>
-                <li class="nav-item">
-                    <a th:if="${session.currentUser != null && session.currentUser.Role.name == 'ADMIN'}"
-                    class="nav-link" href="/user/admin">Admin</a>
+                <li th:if="${session.currentUser != null && session.currentUser.Role.name == 'ADMIN'}" class="nav-item dropdown" >
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/user/admin/add-product">Добавить продукт</a></li>
+                        <li><a class="dropdown-item" href="/user/admin/edit-product">Редактировать продукт</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/catalog/admin/create">Добавить тип продукта</a></li>
+                    </ul>
+                    <!--<div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                           <li style="background-color: #FFFFFF" > <a class="dropdown-item"   text="Add" href="/catalog/admin/create"></a></li>
+                            <li> <a class="dropdown-item"   text="Add=" href=""></a></li>
+                        </ul>
+                    </div>-->
                 </li>
                 <li class="nav-item">
                     <a th:if="${session.currentUser != null &&

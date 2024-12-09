@@ -1,6 +1,7 @@
 package by.tms.onlinerclonec30onl.controller;
 
 
+import by.tms.onlinerclonec30onl.domain.Account;
 import by.tms.onlinerclonec30onl.domain.Cart;
 
 import by.tms.onlinerclonec30onl.domain.CartItem;
@@ -37,6 +38,7 @@ public class CartController {
         CartDTO cartDTO = new CartDTO(idProduct, idShop, idAccount, cart);
         session.setAttribute("cart", cartService.setNewItemCart(cartDTO));
         Cart cart1 = (Cart) session.getAttribute("cart");
+        //model.addAttribute("CurrentUser", (Account) session.getAttribute("currentUser"));
         return "redirect:/cart";
 
 

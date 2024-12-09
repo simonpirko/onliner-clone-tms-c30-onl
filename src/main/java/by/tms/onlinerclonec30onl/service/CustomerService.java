@@ -15,7 +15,7 @@ public class CustomerService {
 
 
     public CustomerDto getCustomer(long id) {
-        Customer customer=customerDAO.findByID(id).get();
+        Customer customer=customerDAO.findByIDAccount(id).get();
 
         CustomerDto customerDto = new CustomerDto();
 
