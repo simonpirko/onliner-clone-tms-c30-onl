@@ -98,5 +98,4 @@ public class ShopController {
         shopService.save(shopId, productId, price, delivery);
         return "redirect:/shop/add-product?shopId=" + shopId;
     }
-
 }
