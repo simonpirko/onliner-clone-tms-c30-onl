@@ -17,11 +17,10 @@ public class UserRegistrationDto {
     @NotBlank
     @NotNull
     @Email
-    @Pattern(regexp = "@Pattern(regexp = \"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\\\.\"\n" +
-            "        + \"[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@\"\n" +
-            "        + \"(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\\\.)+[A-Za-z0-9]\"\n" +
-            "        + \"(?:[A-Za-z0-9-]*[A-Za-z0-9])?\",\n" +
-            "        message = \"huita\")", message = "Введите действительный email")
+    @Pattern(regexp = "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\." +
+            "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@" +
+            "(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+[A-Za-z0-9]" +
+            "(?:[A-Za-z0-9-]*[A-Za-z0-9])?", message = "Введите действительный email")
     private String username;
     @NotBlank
     @Pattern(regexp = "([a-zA-Z0-9!@$%^&*()_\\\\\\-+]){8,}", message = "Пароль должен содержать не менее 8 символов латинского алфавита верхнего и нижнего регистра")
