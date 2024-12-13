@@ -55,10 +55,12 @@ public class AccountController {
     @PostMapping("/login")
     public String login(@Valid UserLoginDTO accountDto,Model model) {
         model.addAttribute("WrongLoginOrPassword", false);
-       if(accountService.Login(accountDto)){
-           return "redirect:/catalog";
-       }
-       model.addAttribute("WrongLoginOrPassword", true);
+        if(accountService.Login(accountDto)){
+            Account account = accountDAO.findByUsername(accountDto.getUsername()).get();
+            session.setAttribute("currentUser", account);
+            return "redirect:/catalog";
+        }
+        model.addAttribute("WrongLoginOrPassword", true);
         return "redirect:/user/login";
     }
 
