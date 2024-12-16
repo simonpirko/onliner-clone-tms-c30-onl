@@ -20,8 +20,8 @@ public class CustomerMapper implements RowMapper<Customer> {
         Account account = accountDAO.findByID(rs.getInt("id_account")).get();
         customer.setAccount(account);
         customer.setId(rs.getLong("id"));
-        customer.setFirstName(rs.getString("name"));
-        customer.setLastName(rs.getString("surname"));
+        customer.setFirstName(rs.getString("first_name"));
+        customer.setLastName(rs.getString("last_name"));
         customer.setAddress(rs.getString("address"));
         customer.setPhone(rs.getString("phone"));
 

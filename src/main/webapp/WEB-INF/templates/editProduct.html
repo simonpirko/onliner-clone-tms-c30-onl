@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:товара="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+<div th:insert="menubar.html"></div>
+    <div class="row">
+        <div class="col-9">
+            <div class="row ">
+
+                <div class="col-md-5  p-md-4">
+                    <img th:src="${editProductDTO.getProductPhotoUrl1}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" alt="...">
+                </div>
+                <div class="col-md-5 p-2 ps-md-4">
+                    <h5 class="mt-0">
+                        <span th:text="*{editProductDTO.getProductName}"></span>
+                    </h5>
+                    <h6 class="mt-0">Тип продукта:
+                        <small class="text-muted"  th:text="${editProductDTO.getProductTypeName}"></small>
+                    </h6>
+                    <div class="row">
+                        <div class="container-sm">
+                            <div class="row">
+                                <div class="col-md-2  p-md-1">
+                                    <img th:src="${editProductDTO.getProductPhotoUrl2}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80" alt="...">
+                                </div>
+                                <div class="col-md-2  p-md-1">
+                                    <img th:src="${editProductDTO.getProductPhotoUrl3}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80" alt="...">
+                                </div>
+                                <div class="col-md-2  p-md-1">
+                                    <img th:src="${editProductDTO.getProductPhotoUrl4}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80"alt="...">
+                                </div>
+                                <div class="col-md-2  p-md-1">
+                                    <img th:src="${editProductDTO.getProductPhotoUrl5}?:('https://www.sales-soluciones.es/server/Portal_0010494/img/products/no_image_xxl.jpg')" class="w-100" height="80" alt="...">
+                                </div>
+                                <h6 class="mt-0">
+                                    <small class="text-muted" th:text="${editProductDTO.getProductDescription}"></small>
+                                </h6>
+                                    <div class="accordion text-center" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                        aria-expanded="true" aria-controls="collapseOne">
+                                                    Select product
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="btn-group" role="group">
+                                                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Выбрать продукт
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                            <li th:each="Product :${allProducts}"><a class="dropdown-item"   th:text="${Product.getName}" th:href="@{/user/admin/edit-product/{id}(id=${Product.getId})}"></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Enter product details
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <form action="/user/admin/edit-product" method="post">
+                                                        <h5 class="mt-0">
+                                                            <div class="mb-3">
+                                                                <label for="productName" class="form-label">Name Product:</label>
+                                                                <input type="text" class="form-control" name="productName" id="productName"
+                                                                       placeholder="Наименование продукта" th:value="${editProductDTO.getProductName}" required>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="textDescription" class="form-label">Product description:</label>
+                                                                <textarea class="form-control" name="productDescription" placeholder="Description..."
+                                                                          id="textDescription"  th:text="${editProductDTO.getProductDescription}?:('')"></textarea>
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <label class="input-group-text">Тип Продукта</label>
+                                                                <select class="form-select" id="inputGroupSelect01" name="productTypeId" required>
+                                                                    <option th:each="productType :${productTypes}" th:text="${productType.getTypeName}" th:value="${productType.getId}" th:selected="${productType.getId==editProductDTO.getProductTypeId}"></option>
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <label class="form-label">Photos:</label>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="text" name="productPhotoUrl1" placeholder="URL address Main photo" class="form-control"
+                                                                       id="Photo1" th:value="${editProductDTO.getProductPhotoUrl1}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="text" name="productPhotoUrl2" placeholder="URL address Photo 2" class="form-control"
+                                                                       id="Photo2" th:value="${editProductDTO.getProductPhotoUrl2}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="text" name="productPhotoUrl3" placeholder="URL address Photo 3" class="form-control"
+                                                                       id="Photo3" th:value="${editProductDTO.getProductPhotoUrl3}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="text" name="productPhotoUrl4" placeholder="URL address Photo 4" class="form-control"
+                                                                       id="Photo4" th:value="${editProductDTO.getProductPhotoUrl4}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <input type="text" name="productPhotoUrl5" placeholder="URL address Photo 5" class="form-control"
+                                                                       id="Photo5" th:value="${editProductDTO.getProductPhotoUrl5}">
+                                                            </div>
+                                                        </h5>
+                                                        <button type="submit" class="btn btn-primary">Preview</button>
+                                                        <a type="button" class="btn btn-primary"  href="/user/admin/edit-product/update-product" role="button">Save data last preview</a>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    Add product type
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <form action="/user/admin/add-product/save-product-type" method="post">
+                                                        <h5 class="mt-0">
+                                                            <div class="mb-3">
+                                                                <label for="productName" class="form-label">Name product type:</label>
+                                                                <input type="text" class="form-control" name="productTypeName" id="productType"
+                                                                       placeholder="Наименование типа товара" required>
+                                                            </div>
+                                                        </h5>
+                                                        <h5 class="mt-0">
+                                                            <div class="mb-3">
+                                                                <label for="productName" class="form-label">Photo product type:</label>
+                                                                <input type="text" class="form-control" name="productTypePhotoUrl" id="productTypePhoto"
+                                                                       placeholder="URL address photo product type" required>
+                                                            </div>
+                                                        </h5>
+                                                        <button type="submit" class="btn btn-primary"> Save </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+
+</body>
+</html>

@@ -22,7 +22,6 @@ public class IndexController {
 
     @GetMapping
     public String index(HttpSession session, Model model) {
-        session.setAttribute("currentUser", accountDAO.findByID(1).get());
         return "index";
     }
 

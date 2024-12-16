@@ -59,7 +59,7 @@ public class ShopController {
             model.addAttribute("error", "This name is already taken");
             return "shopRegistration";
         }
-        return "redirect:/shop/profile";
+        return "redirect:/shop/profile/" + shopDAO.findByName(shop.getName()).getId();
     }
 
     @GetMapping("/profile/{idShop}")

@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -56,10 +55,12 @@ public class AccountController {
     @PostMapping("/login")
     public String login(@Valid UserLoginDTO accountDto,Model model) {
         model.addAttribute("WrongLoginOrPassword", false);
-       if(accountService.Login(accountDto)){
-           return "redirect:/catalog";
-       }
-       model.addAttribute("WrongLoginOrPassword", true);
+        if(accountService.Login(accountDto)){
+            Account account = accountDAO.findByUsername(accountDto.getUsername()).get();
+            session.setAttribute("currentUser", account);
+            return "redirect:/catalog";
+        }
+        model.addAttribute("WrongLoginOrPassword", true);
         return "redirect:/user/login";
     }
 

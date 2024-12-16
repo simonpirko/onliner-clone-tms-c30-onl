@@ -80,10 +80,10 @@
                                 <!-- ELSE -->
                                 <div th:if="${session.currentUser != null}">
                                     <input type="hidden" th:value="${session.currentUser.getId}" name="idAccount"/>
+                                    <button type="submit" name="type" value="Sumbit" class="btn btn-outline-success">
+                                        в корзину
+                                    </button>
                                 </div>
-                                <button type="submit" name="type" value="Sumbit" class="btn btn-outline-success">
-                                    в корзину
-                                </button>
                             </form>
 
 
